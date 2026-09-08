@@ -5731,6 +5731,7 @@ function importShareCode(){
 /* ===================================================================== */
 
 document.addEventListener("DOMContentLoaded",()=>{
+  if(!document.body.className) document.body.className="theme-forest";
   loadClassConfig();
   renderMascots();
   showStartScreen();
