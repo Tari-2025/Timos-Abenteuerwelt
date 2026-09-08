@@ -2970,6 +2970,25 @@ button{cursor:pointer}
 .map-level .map-name{flex:1;line-height:1.3}
 .settings-note{margin-top:14px;padding-top:12px;border-top:2px solid rgba(255,255,255,.12);font-size:13px;opacity:.85}
 
+/* Der Startknopf laeuft am unteren Rand mit, damit Kinder bei einer langen
+   Namensliste nicht erst ans Seitenende scrollen muessen. */
+.start-actions{
+  position:sticky;bottom:-1px;z-index:5;
+  margin:22px -20px -26px;padding:16px 20px 18px;
+  border-radius:0 0 21px 21px;
+  background:linear-gradient(rgba(20,30,24,0),rgba(20,30,24,.94) 34%,rgba(20,30,24,.98));
+}
+.start-actions .big-primary{margin-top:0;width:100%}
+
+/* Bei grossen Klassen werden die Namenskarten kompakter, damit die Liste
+   auf einen Blick erfassbar bleibt. */
+.kid-picker.many{gap:8px}
+.kid-picker.many .kid-card{min-width:88px;min-height:48px;padding:7px 12px;font-size:16px}
+.kid-picker.many .kid-card .kid-stars{font-size:11px}
+@media (max-width:520px){
+  .kid-picker.many .kid-card{min-width:78px;font-size:15px;padding:6px 9px}
+}
+
 </style>
 </head>
 
@@ -3078,7 +3097,9 @@ button{cursor:pointer}
       <div id="diffPicker" class="diff-picker"></div>
     </div>
 
-    <button id="startBtn" class="primary big-primary" type="button" disabled>Losfahren!</button>
+    <div class="start-actions">
+      <button id="startBtn" class="primary big-primary" type="button" disabled>Losfahren!</button>
+    </div>
     <button id="teacherOpenBtn" class="linkbtn" type="button">Für Lehrkräfte und Eltern</button>
   </div>
 </div>
@@ -5378,6 +5399,7 @@ let pickedDiff="mittel";
 function renderKidPicker(){
   const holder=$("kidPicker");
   holder.innerHTML="";
+  holder.classList.toggle("many", classConfig.kids.length>16);
   if(!classConfig.kids.length){
     const p=document.createElement("p");
     p.className="screen-note";
@@ -5407,7 +5429,9 @@ function renderKidPicker(){
       if(sm) pickedDiff=sm.difficulty;   // zuletzt gewaehlte Stufe vorschlagen
       renderKidPicker();
       renderDiffPicker();
-      $("startBtn").disabled=false;
+      const start=$("startBtn");
+      start.disabled=false;
+      start.textContent=`Losfahren mit ${name}!`;
       Sound.init();
     };
     holder.appendChild(btn);
@@ -5433,6 +5457,7 @@ function renderDiffPicker(){
 function showStartScreen(){
   pickedKid=null;
   $("startBtn").disabled=true;
+  $("startBtn").textContent="Losfahren!";
   $("startClassName").textContent=classConfig.className;
   $("startHeadline").textContent=`Wer fährt heute mit ${MASCOT.name}?`;
   renderMascots();
