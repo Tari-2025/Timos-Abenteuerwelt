@@ -2,8 +2,8 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-<title>Timos Minecart-Mathe – v6.6 Abschlussfahrt</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Abenteuerwelt – Rechnen mit Nilo</title>
 <style>
 :root{
   --gold:#f6c84d;
@@ -22,7 +22,7 @@
   --slot:#303730;
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Arial Black,Impact,Arial,Helvetica,sans-serif;image-rendering:pixelated}
+html,body{margin:0;min-height:100%;font-family:"Segoe UI Rounded","SF Pro Rounded","Trebuchet MS",Verdana,Tahoma,system-ui,sans-serif;font-weight:800}
 body{color:white;overflow-x:hidden;background:#4f9341}
 button,input{font:inherit}
 button{touch-action:manipulation}
@@ -123,7 +123,7 @@ body.theme-cave .hill, body.theme-space .hill{display:none}
 .brand-title{
   display:flex;gap:9px;flex-wrap:wrap;justify-content:center;
   font-weight:1000;font-size:clamp(30px,5vw,64px);line-height:.9;
-  letter-spacing:-1px;text-transform:uppercase;
+  letter-spacing:0;text-transform:none;
   filter:drop-shadow(0 5px 0 rgba(0,0,0,.34))
 }
 .brand-title .player{
@@ -748,18 +748,18 @@ body.theme-goldcity .scene .coaster-hint{opacity:.7;filter:drop-shadow(0 0 8px r
   box-shadow:inset 0 5px 0 rgba(255,255,255,.04),inset 0 -6px 0 rgba(0,0,0,.22)
 }
 .question{
-  padding:12px 18px;background:#171d18;border:4px solid #59655a;border-radius:3px!important;
+  padding:12px 18px;background:#1d2620;border:4px solid #59655a;border-radius:18px!important;
   box-shadow:inset 0 0 0 3px #0d110e,0 5px 0 #0a0d0a;text-shadow:3px 3px 0 #000
 }
-.answer{border-radius:3px!important;border-width:5px!important;box-shadow:inset 0 4px 0 rgba(0,0,0,.18),0 4px 0 #0b0e0b}
+.answer{border-radius:16px!important;border-width:5px!important;box-shadow:inset 0 4px 0 rgba(0,0,0,.18),0 4px 0 #0b0e0b}
 .primary{
-  border-radius:3px!important;
+  border-radius:18px!important;
   background:linear-gradient(180deg,rgba(255,255,255,.16) 0 18%,transparent 18%),linear-gradient(#79dc4c,#3e9b28)!important;
   border:5px solid #225f16!important;outline:2px solid #112e0b;box-shadow:0 6px 0 #153f0f!important;
   text-transform:uppercase;letter-spacing:.4px
 }
 .primary:active{transform:translateY(4px);box-shadow:0 2px 0 #153f0f!important}
-.level-chip,.progress,.soundbtn,.sidebtn,.trophybtn,.starbox,.inventory,.slot,.feedback{border-radius:3px!important}
+.level-chip,.progress,.soundbtn,.sidebtn,.trophybtn,.starbox,.inventory,.slot,.feedback{border-radius:14px!important}
 .sidebtn,.trophybtn,.soundbtn{
   background:linear-gradient(180deg,rgba(255,255,255,.10) 0 18%,transparent 18%),linear-gradient(#465048,#2a312b)!important;
   border-width:4px!important
@@ -1633,16 +1633,18 @@ body.theme-goldcity .scene .coaster-hint{opacity:.7;filter:drop-shadow(0 0 8px r
 
 /* ---------- MODALS ---------- */
 .overlay{
-  position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;
-  padding:18px;background:rgba(0,0,0,.73)
+  position:fixed;inset:0;z-index:40;display:none;align-items:flex-start;justify-content:center;
+  padding:18px;background:rgba(0,0,0,.73);overflow-y:auto
 }
 .overlay.open{display:flex}
 .dialog{
   position:relative;width:min(560px,95vw);padding:26px;text-align:center;
+  margin:auto 0;
   background:#242a25;border:6px solid #657068;outline:3px solid #0d100d;border-radius:16px;
   box-shadow:0 16px 46px rgba(0,0,0,.56)
 }
-.close{position:absolute;right:10px;top:6px;background:transparent;border:none;color:#fff;font-size:32px;cursor:pointer}
+.close{position:absolute;right:6px;top:4px;width:46px;height:46px;background:transparent;border:none;color:#fff;font-size:32px;line-height:46px;cursor:pointer;border-radius:12px}
+.close:hover{background:rgba(255,255,255,.12)}
 .dialog h2{font-size:36px;margin:4px 0 10px}.dialog p{font-size:19px;line-height:1.4}
 .big-icon{width:74px;height:74px;margin:0 auto 8px;display:grid;place-items:center}
 .bonus{font-size:18px;font-weight:900;margin:14px 0;display:flex;align-items:center;justify-content:center;gap:10px}
@@ -1725,25 +1727,8 @@ body.theme-goldcity .scene .coaster-hint{opacity:.7;filter:drop-shadow(0 0 8px r
 #cartWrap .rider.oops{animation:riderOops .55s ease}
 @keyframes riderOops{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}60%{transform:rotate(6deg)}}
 
-/* ---- HAUSTIER (Wolf/Hund) läuft neben der Lore ---- */
-#cartWrap .pet{position:absolute;left:-46px;bottom:0;width:46px;height:32px;z-index:5;pointer-events:none;image-rendering:pixelated;animation:petBob .46s ease-in-out infinite}
-@keyframes petBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-#cartWrap .pet.happy{animation:petHappy .6s ease}
-@keyframes petHappy{0%{transform:translateY(0)}30%{transform:translateY(-18px)}55%{transform:translateY(0)}75%{transform:translateY(-9px)}100%{transform:translateY(0)}}
-#cartWrap .pet .body{position:absolute;left:4px;bottom:6px;width:30px;height:14px;background:#b7bdc1;border:3px solid #3a3f42;border-radius:5px}
-#cartWrap .pet .head{position:absolute;left:24px;bottom:11px;width:16px;height:14px;background:#c4cacd;border:3px solid #3a3f42;border-radius:4px}
-#cartWrap .pet .ear{position:absolute;left:25px;bottom:22px;width:5px;height:7px;background:#c4cacd;border:2px solid #3a3f42}
-#cartWrap .pet .ear.e2{left:33px}
-#cartWrap .pet .snout{position:absolute;left:39px;bottom:13px;width:6px;height:5px;background:#3a3f42}
-#cartWrap .pet .eye{position:absolute;left:30px;bottom:18px;width:3px;height:3px;background:#15181a}
-#cartWrap .pet .tail{position:absolute;left:-3px;bottom:12px;width:10px;height:6px;background:#b7bdc1;border:3px solid #3a3f42;transform-origin:right center;animation:petTail .38s ease-in-out infinite}
-@keyframes petTail{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(20deg)}}
-#cartWrap .pet .leg{position:absolute;bottom:0;width:6px;height:7px;background:#a9afb3;border:2px solid #3a3f42}
-#cartWrap .pet .l1{left:8px;animation:stepA .3s linear infinite}
-#cartWrap .pet .l2{left:24px;animation:stepB .3s linear infinite}
-
 /* ---- KRITTER: laufende/fliegende Tiere im Hintergrund ---- */
-.critter{position:absolute;bottom:96px;left:-12%;z-index:1;pointer-events:none;image-rendering:pixelated;display:none}
+.critter{position:absolute;bottom:96px;left:-12%;z-index:1;pointer-events:none;display:none}
 .scene:not(.cave):not(.space) .critter.pig{display:block;animation:walkAcross 19s linear 0s infinite, hop .5s ease-in-out infinite}
 .scene:not(.cave):not(.space) .critter.chicken{display:block;animation:walkAcross 15s linear -7s infinite, hop .34s ease-in-out infinite}
 @keyframes walkAcross{from{left:-12%}to{left:112%}}
@@ -1872,7 +1857,7 @@ body.theme-goldcity .scene .coaster-hint{opacity:.7;filter:drop-shadow(0 0 8px r
   .critter,.voxel-cloud,.cloud,.daynight,.shooting-star,.space-stars,
   .planet-orb,.planet-ring.show,.block-post::after,.tunnel::after,
   .scene.river .waterfall,.rail-spark,
-  #cartWrap .pet,#cartWrap .pet .tail,#cartWrap .pet .leg,.deco.bird,.deco.bird .wing,.deco.bee,.deco.bee .wing1,.deco.bee .wing2,.deco.frog,.deco.butterfly,.deco.butterfly .wing1,.deco.butterfly .wing2,.deco.butterfly .wing3,.deco.butterfly .wing4,.deco.cloud{animation:none !important}
+  .deco.bird,.deco.bird .wing,.deco.bee,.deco.bee .wing1,.deco.bee .wing2,.deco.frog,.deco.butterfly,.deco.butterfly .wing1,.deco.butterfly .wing2,.deco.butterfly .wing3,.deco.butterfly .wing4,.deco.cloud{animation:none !important}
   .daynight{opacity:0 !important}
 }
 
@@ -2346,7 +2331,7 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
 @keyframes hitPow{0%{opacity:0;transform:scale(.4)}25%{opacity:1;transform:scale(1.25)}100%{opacity:0;transform:scale(1) translateY(-26px)}}
 
 /* ---- Held im Boss-Kampf ---- */
-.boss-hero{position:absolute;left:9%;bottom:44px;width:56px;height:120px;z-index:2;image-rendering:pixelated}
+.boss-hero{position:absolute;left:9%;bottom:44px;width:56px;height:120px;z-index:2}
 .boss-hero.attack{animation:heroAttack .5s ease}
 @keyframes heroAttack{0%,100%{transform:translateX(0)}45%{transform:translateX(46px)}}
 .boss-hero.flinch{animation:heroFlinch .45s ease}
@@ -2358,80 +2343,215 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
 .boss-hero .h-body{position:absolute;top:30px;left:16px;width:24px;height:38px;background:#12a3b0;box-shadow:inset 0 0 0 3px #0d7f8a}
 .boss-hero .h-arm{position:absolute;top:32px;width:9px;height:30px;background:#c98d5a;box-shadow:inset 0 0 0 2px #a9713f}
 .boss-hero .h-arm.a1{left:8px}.boss-hero .h-arm.a2{right:8px}
-.boss-hero .h-leg{position:absolute;bottom:0;width:10px;height:34px;background:#3a4a86}
+.boss-hero .h-leg{position:absolute;bottom:0;width:10px;height:52px;background:#3a4a86;border-radius:0 0 6px 6px}
 .boss-hero .h-leg.l1{left:17px}.boss-hero .h-leg.l2{right:17px}
-.boss-hero .h-sword{position:absolute;top:18px;right:-8px;width:6px;height:42px;background:linear-gradient(#eef,#bcd);border:2px solid #889;transform-origin:bottom center;transform:rotate(18deg)}
-.boss-hero .h-sword::after{content:"";position:absolute;left:-4px;bottom:6px;width:14px;height:5px;background:#7a5a2b}
+.boss-hero .h-sword{position:absolute;top:18px;right:-8px;width:7px;height:42px;background:linear-gradient(#c99a5e,#8a6434);border:2px solid #6d4d27;border-radius:4px;transform-origin:bottom center;transform:rotate(18deg)}
+.boss-hero .h-sword::after{content:"\2605";position:absolute;left:-13px;top:-20px;width:32px;height:32px;font-size:30px;line-height:32px;text-align:center;color:#ffd45e;text-shadow:0 0 10px rgba(255,212,94,.85)}
 .boss-hero.attack .h-sword{animation:swordSwing .5s ease}
 @keyframes swordSwing{0%{transform:rotate(18deg)}45%{transform:rotate(-72deg)}100%{transform:rotate(18deg)}}
 
 /* ---- Gegner allgemein ---- */
-.boss-enemy{position:absolute;right:9%;bottom:44px;z-index:2;image-rendering:pixelated;transform-origin:bottom center;animation:enemyIdle 2.4s ease-in-out infinite}
+.boss-enemy{position:absolute;right:9%;bottom:44px;z-index:2;transform-origin:bottom center;animation:enemyIdle 2.4s ease-in-out infinite}
 @keyframes enemyIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 
-/* Creeper */
-.boss-enemy.creeper{width:70px;height:150px}
-.creeper .cr-head{position:absolute;top:0;left:11px;width:48px;height:48px;background:#6cc349;box-shadow:inset 0 0 0 3px #56a637}
-.creeper .cr-body{position:absolute;top:48px;left:17px;width:36px;height:78px;background:#6cc349;box-shadow:inset 0 0 0 3px #56a637}
-.creeper .cr-foot{position:absolute;bottom:0;width:18px;height:16px;background:#56a637}
-.creeper .f1{left:14px}.creeper .f2{right:14px}
-.creeper .cr-eye{position:absolute;top:14px;width:11px;height:11px;background:#14210f}
-.creeper .cr-eye.e1{left:9px}.creeper .cr-eye.e2{right:9px}
-.creeper .cr-mouth{position:absolute;top:25px;left:19px;width:10px;height:20px;background:#14210f}
-.creeper .cr-mouth::before{content:"";position:absolute;left:-7px;top:8px;width:7px;height:12px;background:#14210f}
-.creeper .cr-mouth::after{content:"";position:absolute;right:-7px;top:8px;width:7px;height:12px;background:#14210f}
+/* ---------------------------------------------------------------
+   EIGENE CARTOON-GEGENSPIELER
+   Alle Figuren sind freundlich-frech gezeichnet, nicht gruselig.
+   Reines CSS, runde Formen, keine Vorlage aus einem anderen Spiel.
+   --------------------------------------------------------------- */
 
-/* Zombie */
-.boss-enemy.zombie{width:74px;height:150px}
-.zombie .z-head{position:absolute;top:0;left:17px;width:40px;height:40px;background:#4a7a3a;box-shadow:inset 0 0 0 3px #3c6630}
-.zombie .z-eye{position:absolute;top:20px;width:9px;height:8px;background:#0e2a12;box-shadow:0 0 4px #1c6b2a}
-.zombie .z-eye.e1{left:7px}.zombie .z-eye.e2{right:7px}
-.zombie .z-body{position:absolute;top:40px;left:22px;width:30px;height:52px;background:#2f9e8f;box-shadow:inset 0 0 0 3px #24796e}
-.zombie .z-arm{position:absolute;top:44px;width:38px;height:12px;background:#4a7a3a;box-shadow:inset 0 0 0 3px #3c6630}
-.zombie .z-arm.a1{left:-18px}.zombie .z-arm.a2{right:-18px}
-.zombie .z-leg{position:absolute;bottom:0;width:13px;height:40px;background:#2f4a86;box-shadow:inset 0 0 0 3px #24386a}
-.zombie .z-leg.l1{left:24px}.zombie .z-leg.l2{right:24px}
+/* Broeckel - der Steinwicht */
+.boss-enemy.boulder{width:104px;height:136px}
+.boss-enemy.boulder .b-body{
+  position:absolute;bottom:12px;left:6px;width:92px;height:88px;
+  background:radial-gradient(circle at 34% 28%,#9aa6ad,#6d7a83 62%,#55626b);
+  border:5px solid #414d55;border-radius:46% 52% 44% 50%/50% 46% 54% 44%;
+}
+.boss-enemy.boulder .b-moss{
+  position:absolute;top:14px;left:16px;width:72px;height:26px;
+  background:#79c65a;border:5px solid #4d8f38;
+  border-radius:60% 60% 34% 34%/90% 90% 20% 20%;
+}
+.boss-enemy.boulder .b-eye{
+  position:absolute;top:52px;width:22px;height:22px;background:#fffdf5;
+  border:4px solid #414d55;border-radius:50%;
+}
+.boss-enemy.boulder .b-eye.e1{left:22px}
+.boss-enemy.boulder .b-eye.e2{right:22px}
+.boss-enemy.boulder .b-eye::after{
+  content:"";position:absolute;left:5px;top:6px;width:8px;height:8px;
+  background:#2b3339;border-radius:50%;
+}
+.boss-enemy.boulder .b-mouth{
+  position:absolute;top:82px;left:38px;width:28px;height:12px;
+  border:4px solid #414d55;border-top:none;border-radius:0 0 20px 20px;
+}
+.boss-enemy.boulder .b-arm{
+  position:absolute;top:62px;width:22px;height:16px;background:#7b878f;
+  border:4px solid #414d55;border-radius:12px;
+}
+.boss-enemy.boulder .b-arm.a1{left:-12px;transform:rotate(-16deg)}
+.boss-enemy.boulder .b-arm.a2{right:-12px;transform:rotate(16deg)}
+.boss-enemy.boulder .b-foot{
+  position:absolute;bottom:0;width:26px;height:16px;background:#65727a;
+  border:4px solid #414d55;border-radius:12px 12px 8px 8px;
+}
+.boss-enemy.boulder .b-foot.f1{left:16px}
+.boss-enemy.boulder .b-foot.f2{right:16px}
 
-/* Skelett */
-.boss-enemy.skeleton{width:74px;height:148px}
-.skeleton .s-head{position:absolute;top:0;left:18px;width:38px;height:34px;background:#d9dde0;box-shadow:inset 0 0 0 3px #b9c0c4}
-.skeleton .s-eye{position:absolute;top:12px;width:9px;height:9px;background:#14140f}
-.skeleton .s-eye.e1{left:7px}.skeleton .s-eye.e2{right:7px}
-.skeleton .s-spine{position:absolute;top:34px;left:35px;width:5px;height:58px;background:#d9dde0}
-.skeleton .s-rib{position:absolute;left:22px;width:30px;height:5px;background:#cfd4d7}
-.skeleton .s-rib.r1{top:44px}.skeleton .s-rib.r2{top:56px}.skeleton .s-rib.r3{top:68px}
-.skeleton .s-leg{position:absolute;bottom:0;width:6px;height:44px;background:#d9dde0}
-.skeleton .s-leg.l1{left:30px}.skeleton .s-leg.l2{right:30px}
-.skeleton .s-bow{position:absolute;top:34px;right:4px;width:16px;height:62px;border:4px solid #8a5a2b;border-left:none;border-radius:0 44px 44px 0;background:transparent}
-.skeleton .s-bow::after{content:"";position:absolute;left:1px;top:-6px;bottom:-6px;width:2px;background:#eaeaea}
+/* Matschi - der Schlammklecks */
+.boss-enemy.slime{width:112px;height:104px}
+.boss-enemy.slime .s-blob{
+  position:absolute;bottom:0;left:0;width:112px;height:88px;
+  background:radial-gradient(circle at 36% 26%,#8ff0c8,#3fc79a 58%,#2aa07c);
+  border:5px solid #1f7f62;
+  border-radius:52% 48% 40% 44%/62% 60% 40% 38%;
+  animation:slimeWobble 2.2s ease-in-out infinite;
+}
+@keyframes slimeWobble{
+  0%,100%{border-radius:52% 48% 40% 44%/62% 60% 40% 38%;transform:scale(1,1)}
+  50%    {border-radius:44% 56% 48% 38%/54% 66% 34% 46%;transform:scale(1.05,.94)}
+}
+.boss-enemy.slime .s-shine{
+  position:absolute;top:16px;left:22px;width:24px;height:16px;
+  background:rgba(255,255,255,.65);border-radius:50%;transform:rotate(-18deg);
+}
+.boss-enemy.slime .s-eye{
+  position:absolute;top:34px;width:20px;height:22px;background:#fffdf5;
+  border:4px solid #1f7f62;border-radius:50%;
+}
+.boss-enemy.slime .s-eye.e1{left:26px}
+.boss-enemy.slime .s-eye.e2{right:26px}
+.boss-enemy.slime .s-eye::after{
+  content:"";position:absolute;left:4px;top:7px;width:8px;height:8px;
+  background:#20323a;border-radius:50%;
+}
+.boss-enemy.slime .s-mouth{
+  position:absolute;top:64px;left:44px;width:24px;height:14px;
+  background:#1f7f62;border-radius:0 0 16px 16px;
+}
 
-/* Spinne */
-.boss-enemy.spider{width:130px;height:78px;bottom:44px;transform-origin:center}
-.spider .sp-body{position:absolute;right:6px;bottom:8px;width:54px;height:44px;background:#3a2a22;border-radius:44%;box-shadow:inset 0 0 0 4px #29201a}
-.spider .sp-head{position:absolute;right:54px;bottom:16px;width:30px;height:28px;background:#4a352a;border-radius:44%}
-.spider .sp-eye{position:absolute;width:6px;height:6px;background:#ff3b30;border-radius:50%;box-shadow:0 0 5px #ff3b30}
-.spider .sp-eye.e1{right:74px;bottom:34px}.spider .sp-eye.e2{right:64px;bottom:34px}
-.spider .sp-leg{position:absolute;bottom:16px;width:32px;height:5px;background:#221812;border-radius:3px}
-.spider .spl1{right:52px;transform-origin:right center;transform:rotate(30deg)}
-.spider .spl2{right:56px;transform-origin:right center;transform:rotate(8deg)}
-.spider .spl3{right:58px;bottom:10px;transform-origin:right center;transform:rotate(-16deg)}
-.spider .spr1{right:8px;transform-origin:left center;transform:rotate(-30deg)}
-.spider .spr2{right:4px;transform-origin:left center;transform:rotate(-8deg)}
-.spider .spr3{right:2px;bottom:10px;transform-origin:left center;transform:rotate(16deg)}
+/* Wusel - der Wirbelwind */
+.boss-enemy.gust{width:112px;height:144px}
+.boss-enemy.gust .w-ring{
+  position:absolute;left:50%;translate:-50% 0;
+  border:5px solid #9fd8ef;border-radius:50%;
+  background:rgba(159,216,239,.18);
+}
+.boss-enemy.gust .w-ring.r1{top:96px;width:104px;height:34px;animation:gustSpin 1.5s linear infinite}
+.boss-enemy.gust .w-ring.r2{top:66px;width:84px;height:30px;animation:gustSpin 1.2s linear infinite reverse}
+.boss-enemy.gust .w-ring.r3{top:40px;width:64px;height:26px;animation:gustSpin 1s linear infinite}
+@keyframes gustSpin{0%{transform:rotate(0) scaleX(1)}50%{transform:rotate(180deg) scaleX(.82)}100%{transform:rotate(360deg) scaleX(1)}}
+.boss-enemy.gust .w-face{
+  position:absolute;top:0;left:50%;translate:-50% 0;width:64px;height:52px;
+  background:#dff1fa;border:5px solid #6fb2ce;border-radius:50%;
+}
+.boss-enemy.gust .w-eye{
+  position:absolute;top:16px;width:12px;height:14px;background:#2f4a58;border-radius:50%;
+}
+.boss-enemy.gust .w-eye.e1{left:12px}
+.boss-enemy.gust .w-eye.e2{right:12px}
+.boss-enemy.gust .w-mouth{
+  position:absolute;top:32px;left:50%;translate:-50% 0;width:18px;height:14px;
+  background:#2f4a58;border-radius:50%;
+}
 
-/* Enderdrache (Finale) */
-.boss-enemy.dragon{width:180px;height:130px;right:6%;bottom:auto;top:20%;animation:dragonFloat 3s ease-in-out infinite}
+/* Flatti - die Hoehlenfledermaus */
+.boss-enemy.batty{width:152px;height:104px;bottom:auto;top:24%}
+.boss-enemy.batty .bt-body{
+  position:absolute;left:50%;translate:-50% 0;top:26px;width:56px;height:52px;
+  background:radial-gradient(circle at 38% 30%,#b79aef,#8a63d2 62%,#6f4bb8);
+  border:5px solid #513690;border-radius:50% 50% 46% 46%;
+}
+.boss-enemy.batty .bt-ear{
+  position:absolute;top:8px;width:20px;height:26px;background:#8a63d2;
+  border:5px solid #513690;border-radius:60% 60% 10% 10%;
+}
+.boss-enemy.batty .bt-ear.e1{left:50px;transform:rotate(-14deg)}
+.boss-enemy.batty .bt-ear.e2{right:50px;transform:rotate(14deg)}
+.boss-enemy.batty .bt-eye{
+  position:absolute;top:44px;width:18px;height:18px;background:#fffdf5;
+  border:4px solid #513690;border-radius:50%;
+}
+.boss-enemy.batty .bt-eye.e1{left:56px}
+.boss-enemy.batty .bt-eye.e2{right:56px}
+.boss-enemy.batty .bt-eye::after{
+  content:"";position:absolute;left:4px;top:5px;width:7px;height:7px;
+  background:#2b2340;border-radius:50%;
+}
+.boss-enemy.batty .bt-tooth{
+  position:absolute;top:66px;left:50%;translate:-50% 0;width:14px;height:9px;
+  background:#fffdf5;border-radius:0 0 8px 8px;
+}
+.boss-enemy.batty .bt-wing{
+  position:absolute;top:30px;width:52px;height:44px;background:#7a55c4;
+  border:5px solid #513690;transform-origin:bottom center;
+}
+.boss-enemy.batty .bt-wing.w1{
+  left:2px;border-radius:60% 20% 40% 10%;
+  animation:battyFlap 1s ease-in-out infinite;
+}
+.boss-enemy.batty .bt-wing.w2{
+  right:2px;border-radius:20% 60% 10% 40%;
+  animation:battyFlap 1s ease-in-out infinite;
+}
+@keyframes battyFlap{0%,100%{transform:rotate(-4deg) scaleY(1)}50%{transform:rotate(6deg) scaleY(.66)}}
+
+/* Der Wolkendrache - grosses Finale */
+.boss-enemy.clouddragon{width:196px;height:140px;right:6%;bottom:auto;top:18%;animation:dragonFloat 3s ease-in-out infinite}
 @keyframes dragonFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.dragon .d-body{position:absolute;left:58px;top:44px;width:74px;height:30px;background:#1a1626;border-radius:14px;box-shadow:inset 0 0 0 3px #2c2540}
-.dragon .d-neck{position:absolute;left:112px;top:26px;width:20px;height:34px;background:#1a1626;transform:rotate(22deg)}
-.dragon .d-head{position:absolute;left:122px;top:8px;width:46px;height:26px;background:#211a30;border-radius:6px;box-shadow:inset 0 0 0 3px #2c2540}
-.dragon .d-eye{position:absolute;left:152px;top:14px;width:8px;height:8px;background:#c77dff;border-radius:50%;box-shadow:0 0 7px #c77dff}
-.dragon .d-tail{position:absolute;left:2px;top:50px;width:62px;height:12px;background:#1a1626;border-radius:8px;transform-origin:right center;animation:dTail 2s ease-in-out infinite}
+.boss-enemy.clouddragon .d-body{
+  position:absolute;left:54px;top:46px;width:88px;height:44px;
+  background:linear-gradient(160deg,#7fe4d8,#3fb8b0 60%,#2b938e);
+  border:5px solid #1f7a76;border-radius:44px 40px 38px 46px;
+}
+.boss-enemy.clouddragon .d-belly{
+  position:absolute;left:70px;top:64px;width:58px;height:24px;
+  background:#ffe9a8;border-radius:30px;opacity:.9;
+}
+.boss-enemy.clouddragon .d-neck{
+  position:absolute;left:116px;top:22px;width:30px;height:44px;
+  background:#3fb8b0;border:5px solid #1f7a76;border-radius:16px;transform:rotate(24deg);
+}
+.boss-enemy.clouddragon .d-head{
+  position:absolute;left:132px;top:0;width:62px;height:44px;
+  background:linear-gradient(160deg,#7fe4d8,#3fb8b0);
+  border:5px solid #1f7a76;border-radius:28px 34px 20px 30px;
+}
+.boss-enemy.clouddragon .d-horn{
+  position:absolute;left:146px;top:-16px;width:16px;height:24px;
+  background:#ffd45e;border:4px solid #c9932a;border-radius:60% 60% 20% 20%;
+  transform:rotate(-18deg);
+}
+.boss-enemy.clouddragon .d-eye{
+  position:absolute;left:164px;top:12px;width:19px;height:19px;
+  background:#fffdf5;border:4px solid #1f7a76;border-radius:50%;
+}
+.boss-enemy.clouddragon .d-eye::after{
+  content:"";position:absolute;left:5px;top:5px;width:7px;height:7px;
+  background:#1d3b3a;border-radius:50%;
+}
+.boss-enemy.clouddragon .d-tail{
+  position:absolute;left:0;top:52px;width:66px;height:18px;
+  background:#3fb8b0;border:5px solid #1f7a76;border-radius:12px;
+  transform-origin:right center;animation:dTail 2s ease-in-out infinite;
+}
+.boss-enemy.clouddragon .d-tail::after{
+  content:"";position:absolute;left:-14px;top:-10px;width:26px;height:28px;
+  background:#ffd45e;border:4px solid #c9932a;
+  border-radius:50% 10% 50% 10%;
+}
 @keyframes dTail{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(9deg)}}
-.dragon .d-wing{position:absolute;width:74px;height:52px;background:#2a2140;clip-path:polygon(0 100%,18% 0,100% 28%,58% 100%);transform-origin:bottom left}
-.dragon .d-wing.w1{left:60px;top:-8px;animation:dWing 1.1s ease-in-out infinite}
-.dragon .d-wing.w2{left:66px;top:10px;opacity:.65;animation:dWing 1.1s ease-in-out .12s infinite}
-@keyframes dWing{0%,100%{transform:rotate(-6deg) scaleY(1)}50%{transform:rotate(-30deg) scaleY(.7)}}
+.boss-enemy.clouddragon .d-wing{
+  position:absolute;width:62px;height:46px;
+  background:linear-gradient(160deg,#bff3ee,#6fd6cd);
+  border:5px solid #1f7a76;
+  border-radius:76% 16% 60% 20%;
+  transform-origin:bottom left;
+}
+.boss-enemy.clouddragon .d-wing.w1{left:62px;top:2px;animation:dWing 1.1s ease-in-out infinite}
+.boss-enemy.clouddragon .d-wing.w2{left:72px;top:16px;opacity:.55;animation:dWing 1.1s ease-in-out .12s infinite}
+@keyframes dWing{0%,100%{transform:rotate(-6deg) scaleY(1)}50%{transform:rotate(-28deg) scaleY(.72)}}
 
 /* ---- Gegner-Zustände (nach den Gegnern, damit sie gewinnen) ---- */
 .boss-enemy.hit{animation:enemyHit .45s ease}
@@ -2442,7 +2562,431 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
 @keyframes enemyDefeat{0%{transform:translateY(0) rotate(0);opacity:1}35%{transform:translateY(-12px) rotate(10deg)}100%{transform:translateY(70px) rotate(90deg);opacity:0}}
 
 @media (prefers-reduced-motion: reduce){
-  .boss-enemy,.dragon .d-tail,.dragon .d-wing{animation:none !important}
+  .boss-enemy,.boss-enemy .d-tail,.boss-enemy .d-wing,.boss-enemy .bt-wing,.boss-enemy .w-ring,.boss-enemy .s-blob{animation:none !important}
+}
+
+/* ===================================================================== */
+/* ==========  CARTOON-PASS, MASKOTTCHEN & NEUE BILDSCHIRME  =========== */
+/* ===================================================================== */
+
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+/* ---- Weichere Kanten im ganzen Spiel ---- */
+.game-window,.builder,.scene,.task,.mechanic-card,.build-btn,.deco-slot,
+.modal-card,.overlay-card,.theme-picker button,.build-slot,.resource,
+.milestone-banner,.goalbar,.tasktip,.mechanic-panel{border-radius:18px}
+.build-slot{border-radius:12px}
+button{cursor:pointer}
+.primary{text-transform:none;letter-spacing:0}
+.question{text-shadow:2px 2px 0 rgba(0,0,0,.45)}
+
+/* ---------------------------------------------------------------
+   MASKOTTCHEN
+   Aus einfachen Bausteinen zusammengesetzt. Die Tierart bestimmt
+   Ohren und Schnauze, die Farbklasse setzt nur die Farbtoene.
+   --------------------------------------------------------------- */
+.mascot{
+  position:relative;width:var(--m-size,84px);height:var(--m-size,84px);
+  --m-main:#b49be0; --m-dark:#6f56a5; --m-light:#d8c8f2; --m-belly:#f6efff;
+}
+.mascot.c-violet{--m-main:#b49be0;--m-dark:#6f56a5;--m-light:#d8c8f2;--m-belly:#f7f0ff}
+.mascot.c-mint  {--m-main:#6fd8b8;--m-dark:#2f8f77;--m-light:#a9ecd8;--m-belly:#effff9}
+.mascot.c-gold  {--m-main:#f5c85a;--m-dark:#b8862a;--m-light:#ffe3a1;--m-belly:#fff8e6}
+.mascot.c-coral {--m-main:#f79a8b;--m-dark:#c15a4c;--m-light:#ffc4ba;--m-belly:#fff0ed}
+.mascot.c-sky   {--m-main:#7cc6f0;--m-dark:#3c7fae;--m-light:#b6e2fa;--m-belly:#eef8ff}
+.mascot.c-moss  {--m-main:#95cf6a;--m-dark:#548a34;--m-light:#c2e8a4;--m-belly:#f2fce9}
+
+.mascot i{position:absolute;display:block}
+.mascot .m-body{
+  left:14%;top:40%;width:72%;height:56%;
+  background:var(--m-main);border:4px solid var(--m-dark);
+  border-radius:48% 48% 42% 42%;
+}
+.mascot .m-belly{
+  left:30%;top:56%;width:40%;height:34%;
+  background:var(--m-belly);border-radius:50%;opacity:.85;
+}
+.mascot .m-head{
+  left:12%;top:6%;width:76%;height:52%;
+  background:var(--m-main);border:4px solid var(--m-dark);border-radius:46%;
+}
+.mascot .m-ear{
+  top:2%;width:20%;height:22%;
+  background:var(--m-main);border:4px solid var(--m-dark);border-radius:50%;
+}
+.mascot .m-ear.l{left:12%}
+.mascot .m-ear.r{right:12%}
+.mascot .m-eye{
+  top:26%;width:15%;height:16%;background:#fffdf7;
+  border:3px solid var(--m-dark);border-radius:50%;
+}
+.mascot .m-eye.l{left:24%}
+.mascot .m-eye.r{right:24%}
+.mascot .m-eye::after{
+  content:"";position:absolute;left:22%;top:26%;width:52%;height:48%;
+  background:#2b2536;border-radius:50%;
+}
+.mascot .m-snout{
+  left:30%;top:40%;width:40%;height:18%;
+  background:var(--m-light);border:3px solid var(--m-dark);border-radius:44%;
+}
+.mascot .m-snout::before,.mascot .m-snout::after{
+  content:"";position:absolute;top:26%;width:15%;height:26%;
+  background:var(--m-dark);border-radius:50%;
+}
+.mascot .m-snout::before{left:24%}
+.mascot .m-snout::after{right:24%}
+.mascot .m-extra{display:none}
+
+/* Nilpferd: breite Schnauze, kleine runde Ohren */
+.mascot.m-hippo .m-snout{left:26%;top:38%;width:48%;height:22%;border-radius:40%}
+.mascot.m-hippo .m-ear{width:16%;height:16%}
+
+/* Elefant: Ruessel und grosse Ohren */
+.mascot.m-elephant .m-ear{top:16%;width:28%;height:34%;border-radius:50% 40% 45% 55%}
+.mascot.m-elephant .m-ear.l{left:-4%}
+.mascot.m-elephant .m-ear.r{right:-4%}
+.mascot.m-elephant .m-snout{
+  left:38%;top:42%;width:24%;height:40%;border-radius:40% 40% 50% 50%;
+}
+.mascot.m-elephant .m-snout::before,.mascot.m-elephant .m-snout::after{display:none}
+
+/* Baer: kleine hohe Ohren, kurze Schnauze */
+.mascot.m-bear .m-ear{top:-2%;width:22%;height:24%}
+.mascot.m-bear .m-snout{left:33%;top:40%;width:34%;height:18%}
+
+/* Fuchs: spitze Dreiecksohren, schmale Schnauze mit dunkler Nase */
+.mascot.m-fox .m-ear{
+  top:-8%;width:24%;height:30%;border:none;border-radius:0;
+  background:var(--m-dark);
+  clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+.mascot.m-fox .m-ear::after{
+  content:"";position:absolute;left:18%;top:22%;width:64%;height:74%;
+  background:var(--m-main);clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+.mascot.m-fox .m-ear.l{left:8%;transform:rotate(-12deg)}
+.mascot.m-fox .m-ear.r{right:8%;transform:rotate(12deg)}
+.mascot.m-fox .m-snout{
+  left:38%;top:44%;width:24%;height:22%;
+  background:var(--m-belly);border-radius:26% 26% 55% 55%;
+}
+.mascot.m-fox .m-snout::before{
+  left:22%;top:52%;width:56%;height:30%;background:#3b2b33;border-radius:44%;
+}
+.mascot.m-fox .m-snout::after{display:none}
+
+/* Eule: grosse Augen, Schnabel, Federohren */
+.mascot.m-owl .m-ear{top:-4%;width:18%;height:20%;border-radius:50% 50% 10% 10%}
+.mascot.m-owl .m-eye{top:22%;width:22%;height:24%}
+.mascot.m-owl .m-eye.l{left:16%}
+.mascot.m-owl .m-eye.r{right:16%}
+.mascot.m-owl .m-snout{
+  left:42%;top:44%;width:16%;height:16%;
+  background:#f2b544;border-color:#b57f1e;border-radius:20% 20% 60% 60%;
+}
+.mascot.m-owl .m-snout::before,.mascot.m-owl .m-snout::after{display:none}
+
+/* Drache: Hoerner statt Ohren, Fluegel an der Seite */
+.mascot.m-dragon .m-ear{
+  top:-8%;width:15%;height:24%;
+  background:#ffd45e;border-color:#c9932a;border-radius:60% 60% 15% 15%;
+}
+.mascot.m-dragon .m-ear.l{left:18%;transform:rotate(-20deg)}
+.mascot.m-dragon .m-ear.r{right:18%;transform:rotate(20deg)}
+.mascot.m-dragon .m-snout{
+  left:35%;top:44%;width:30%;height:18%;border-radius:34% 34% 50% 50%;
+}
+.mascot.m-dragon .m-snout::before,.mascot.m-dragon .m-snout::after{
+  top:22%;width:13%;height:22%;
+}
+.mascot.m-dragon .m-extra{
+  display:block;right:-6%;top:46%;width:30%;height:30%;
+  background:var(--m-light);border:4px solid var(--m-dark);
+  border-radius:70% 18% 65% 20%;transform:rotate(-8deg);z-index:-1;
+}
+
+/* Maskottchen in der Lore */
+.cart-mascot{
+  position:absolute;left:-8px;bottom:16px;z-index:5;pointer-events:none;
+  animation:mascotBob .9s ease-in-out infinite;
+}
+.cart-mascot .mascot{--m-size:56px}
+@keyframes mascotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.cart-mascot.happy{animation:mascotHappy .7s ease}
+@keyframes mascotHappy{
+  0%{transform:translateY(0) rotate(0)}
+  30%{transform:translateY(-18px) rotate(-8deg)}
+  55%{transform:translateY(0) rotate(0)}
+  78%{transform:translateY(-8px) rotate(5deg)}
+  100%{transform:translateY(0) rotate(0)}
+}
+
+/* ---------------------------------------------------------------
+   PUNKTEBILDER UND HILFEZEILE (Stufe "Leicht")
+   --------------------------------------------------------------- */
+.task-dots{display:none;gap:14px;justify-content:center;align-items:center;margin:10px 0 2px;flex-wrap:wrap}
+.task-dots.show{display:flex}
+.task-dots .dot-group{display:flex;flex-wrap:wrap;gap:5px;max-width:132px;justify-content:center}
+.task-dots .dot{
+  width:17px;height:17px;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,#ffe9a8,#f0b93f);
+  border:3px solid #b57f1e;
+}
+.task-dots .dot.gone{background:#4a544c;border-color:#333b35;opacity:.5}
+.task-dots .dot-op{font-size:26px;color:#ffe9a8}
+.task-hint{
+  display:none;margin:8px auto 0;max-width:340px;padding:8px 12px;
+  background:rgba(255,233,168,.14);border:3px solid rgba(255,233,168,.45);
+  border-radius:14px;color:#ffe9a8;font-size:14px;line-height:1.35;
+}
+.task-hint.show{display:block}
+
+/* ---------------------------------------------------------------
+   STUFEN-UMSCHALTER IN DER TOPBAR
+   --------------------------------------------------------------- */
+.diffbtn{
+  min-height:44px;padding:0 14px;border-radius:14px;color:#fff2c8;
+  background:linear-gradient(#5b6a58,#3a4539);border:4px solid #26302a;
+  font-size:14px;white-space:nowrap;
+}
+.diffbtn:hover{filter:brightness(1.1)}
+
+/* ---------------------------------------------------------------
+   VOLLBILD-SCHIRME (Start / Lehrerbereich)
+   --------------------------------------------------------------- */
+.screen{
+  position:fixed;inset:0;z-index:120;overflow-y:auto;
+  background:linear-gradient(170deg,#3f7f5c,#25523d 55%,#1b3b2c);
+  padding:24px 16px 40px;
+}
+.screen[hidden]{display:none!important}
+.screen-inner{
+  max-width:560px;margin:0 auto;background:rgba(20,30,24,.9);
+  border:5px solid #5b7a63;border-radius:26px;padding:22px 20px 26px;
+  box-shadow:0 14px 0 rgba(0,0,0,.28);text-align:center;
+}
+.screen-inner.wide{max-width:680px;text-align:left}
+.screen-mascot{display:flex;justify-content:center;margin-bottom:6px}
+.screen-mascot .mascot{--m-size:104px}
+.screen-title{margin:4px 0 2px;font-size:26px;color:#fff3d0;line-height:1.2}
+.screen-sub{margin:0 0 16px;color:#a9c6b3;font-size:15px}
+.screen-h2{margin:0 0 4px;font-size:18px;color:#fff3d0}
+.screen-note{margin:0 0 12px;color:#a9c6b3;font-size:14px;line-height:1.45;font-weight:600}
+.screen-block{margin-top:20px;padding-top:18px;border-top:3px solid rgba(255,255,255,.1)}
+
+/* Namensauswahl */
+.kid-picker{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.kid-card{
+  min-width:104px;min-height:52px;padding:10px 16px;font-size:17px;
+  background:linear-gradient(#4d5c4e,#333e35);color:#fff3d0;
+  border:4px solid #26302a;border-radius:16px;
+}
+.kid-card:hover{filter:brightness(1.12)}
+.kid-card.selected{
+  background:linear-gradient(#79dc4c,#3e9b28);border-color:#225f16;color:#0f2410;
+  box-shadow:0 5px 0 #153f0f;
+}
+.kid-card .kid-stars{display:block;font-size:12px;opacity:.85;font-weight:700}
+
+/* Schwierigkeitsauswahl */
+.diff-picker{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.diff-card{
+  flex:1 1 150px;max-width:180px;padding:12px 10px;
+  background:linear-gradient(#4d5c4e,#333e35);color:#fff3d0;
+  border:4px solid #26302a;border-radius:18px;text-align:center;
+}
+.diff-card:hover{filter:brightness(1.12)}
+.diff-card.selected{
+  background:linear-gradient(#79dc4c,#3e9b28);border-color:#225f16;color:#0f2410;
+  box-shadow:0 5px 0 #153f0f;
+}
+.diff-card .d-stars{display:block;font-size:19px;letter-spacing:2px}
+.diff-card .d-label{display:block;font-size:17px;margin:2px 0}
+.diff-card .d-hint{display:block;font-size:12px;font-weight:700;opacity:.9;line-height:1.3}
+
+.big-primary{margin-top:22px;min-height:60px;font-size:20px;padding:0 34px}
+.primary[disabled]{opacity:.45;filter:grayscale(.5)}
+.linkbtn{
+  display:block;margin:14px auto 0;background:none;border:none;
+  color:#a9c6b3;font-size:14px;text-decoration:underline;padding:10px;
+}
+.linkbtn:hover{color:#fff3d0}
+
+/* ---------------------------------------------------------------
+   LEHRERBEREICH
+   --------------------------------------------------------------- */
+.teacher-gate{text-align:center}
+.pin-input{
+  display:block;margin:0 auto 10px;width:150px;text-align:center;
+  font-size:28px;letter-spacing:10px;padding:10px;
+  border-radius:14px;border:4px solid #5b7a63;background:#101a13;color:#fff3d0;
+}
+.teacher-msg{min-height:22px;margin:8px 0;color:#ffd08a;font-size:14px;font-weight:700}
+.teacher-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tabbtn{
+  padding:10px 14px;min-height:44px;font-size:15px;
+  background:#333e35;color:#c9d8cd;border:3px solid #26302a;border-radius:14px;
+}
+.tabbtn.active{background:#79dc4c;color:#0f2410;border-color:#225f16}
+.teacher-tabpanel[hidden]{display:none}
+.field{display:block;margin:0 0 14px}
+.field>span{display:block;margin-bottom:6px;font-size:14px;color:#a9c6b3}
+.field input[type=text],.field input[type=password],.field textarea{
+  width:100%;padding:12px;font-size:16px;border-radius:14px;
+  border:4px solid #5b7a63;background:#101a13;color:#fff3d0;font-family:inherit;
+}
+.field textarea{resize:vertical;font-size:13px;letter-spacing:.5px;word-break:break-all}
+.kid-editor{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;max-height:280px;overflow-y:auto}
+.kid-row{display:flex;gap:8px;align-items:center}
+.kid-row input{
+  flex:1;padding:10px;font-size:16px;border-radius:12px;
+  border:3px solid #5b7a63;background:#101a13;color:#fff3d0;font-family:inherit;
+}
+.icon-btn{
+  width:44px;height:44px;flex:none;border-radius:12px;font-size:20px;
+  background:#5a3a3a;color:#ffd7d2;border:3px solid #7d4a45;
+}
+.icon-btn:hover{filter:brightness(1.15)}
+.add-row{display:flex;gap:8px;align-items:center}
+.add-row input{
+  flex:1;padding:12px;font-size:16px;border-radius:14px;
+  border:4px solid #5b7a63;background:#101a13;color:#fff3d0;font-family:inherit;
+}
+.primary.small{min-height:48px;padding:0 18px;font-size:15px;flex:none}
+.chip-picker{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:10px 14px;min-height:44px;font-size:15px;
+  background:#333e35;color:#c9d8cd;border:3px solid #26302a;border-radius:14px;
+}
+.chip.selected{background:#79dc4c;color:#0f2410;border-color:#225f16}
+.chip .swatch{
+  display:inline-block;width:16px;height:16px;border-radius:50%;
+  border:2px solid rgba(0,0,0,.4);vertical-align:-3px;margin-right:6px;
+}
+.mascot-preview{display:flex;justify-content:center;margin-bottom:16px}
+.mascot-preview .mascot{--m-size:120px}
+.progress-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;max-height:300px;overflow-y:auto}
+.progress-row{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;
+  background:#28332a;border:3px solid #3d4a3f;border-radius:14px;font-size:14px;
+}
+.progress-row .p-name{flex:1;color:#fff3d0;font-size:16px}
+.progress-row .p-info{color:#a9c6b3;font-weight:700}
+.progress-row .p-empty{color:#7f9488;font-weight:700;font-style:italic}
+.danger-btn{
+  width:100%;min-height:50px;padding:0 16px;font-size:15px;
+  background:#7d3a33;color:#ffd7d2;border:4px solid #a04b42;border-radius:16px;
+}
+.danger-btn:hover{filter:brightness(1.15)}
+.teacher-hr{border:none;border-top:3px solid rgba(255,255,255,.1);margin:20px 0}
+.teacher-foot{margin-top:22px;padding-top:18px;border-top:3px solid rgba(255,255,255,.1)}
+.pin-field{max-width:260px}
+
+@media (max-width:520px){
+  .screen{padding:14px 10px 30px}
+  .screen-inner{padding:18px 14px 22px;border-radius:20px}
+  .screen-title{font-size:22px}
+  .kid-card{min-width:92px;font-size:16px}
+}
+@media (prefers-reduced-motion: reduce){
+  .cart-mascot{animation:none!important}
+}
+
+/* ---------------------------------------------------------------
+   CARTOON-FEINSCHLIFF FUER DIE SPIELWELT
+   Die Blockformen der Vorversion werden abgerundet, damit die
+   Welt weicher und freundlicher wirkt.
+   --------------------------------------------------------------- */
+
+.brand-icon{border-radius:16px}
+.brand::before,.brand::after{border-radius:10px}
+
+/* Landschaft */
+.cloud{border-radius:40px}
+.hill{border-radius:60% 60% 0 0/80% 80% 0 0}
+.scene{border-radius:20px}
+
+/* Baeume: runde Krone statt Bloecke */
+.tree{border-radius:6px}
+.tree::before{border-radius:50% 50% 42% 42%}
+.tree::after{border-radius:46%}
+.tree i{border-radius:50% 50% 40% 40%}
+
+/* Steine, Kristalle, Stuetzen */
+.rock{border-radius:44% 46% 38% 42%}
+.crystal{border-radius:6px 6px 3px 3px}
+.support{border-radius:5px}
+
+/* Lore und Held */
+.minecart .body{border-radius:0 0 16px 16px}
+.minecart .rim{border-radius:8px}
+.rider-head{border-radius:44% 44% 40% 40%}
+.rider-hair{border-radius:50% 50% 20% 20%}
+.rider-body{border-radius:0 0 12px 12px}
+.rider-arm{border-radius:6px}
+.rider-eye{border-radius:50%}
+
+/* Held im Kampf gegen die Gegenspieler */
+.boss-hero .h-head{border-radius:44%}
+.boss-hero .h-hair{border-radius:50% 50% 18% 18%}
+.boss-hero .h-body{border-radius:0 0 12px 12px}
+.boss-hero .h-arm,.boss-hero .h-leg{border-radius:6px}
+.boss-hero .h-eye{border-radius:50%}
+
+/* Bauteile in der Bauwelt */
+.track-piece i{border-radius:4px}
+.deco .leaf1,.deco .leaf2,.deco .leaf3{border-radius:50%}
+.deco .b1,.deco .b2,.deco .b3{border-radius:50%}
+.deco .cap{border-radius:50% 50% 30% 30%}
+.deco .head{border-radius:50%}
+
+/* Nilo sitzt neben dem Kind in der Lore */
+.cart-mascot{left:6px;bottom:26px}
+.cart-mascot .mascot{--m-size:46px}
+
+/* Maskottchen steht im Kampf neben dem Kind */
+.boss-mascot{position:absolute;left:2%;bottom:44px;z-index:2;pointer-events:none}
+.boss-mascot .mascot{--m-size:52px}
+.boss-arena:not(.show) .boss-mascot{display:none}
+
+/* Level-Auswahl in der Karte */
+.map-note{margin:0 0 12px;font-size:14px;color:#b9c6bc;line-height:1.4}
+.map-list{display:flex;flex-direction:column;gap:7px;max-height:52vh;overflow-y:auto;text-align:left}
+.map-level{
+  display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;
+  background:#28332a;color:#e6efe7;border:3px solid #3d4a3f;border-radius:14px;
+  font-size:15px;text-align:left;
+}
+.map-level:hover{filter:brightness(1.15)}
+.map-level.current{background:#3f5a35;border-color:#79dc4c;color:#fff3d0}
+.map-level .map-nr{
+  flex:none;width:34px;height:34px;display:grid;place-items:center;
+  background:#1b241d;border:3px solid #4a5a4c;border-radius:10px;font-size:14px;
+}
+.map-level .map-name{flex:1;line-height:1.3}
+.settings-note{margin-top:14px;padding-top:12px;border-top:2px solid rgba(255,255,255,.12);font-size:13px;opacity:.85}
+
+/* Der Startknopf laeuft am unteren Rand mit, damit Kinder bei einer langen
+   Namensliste nicht erst ans Seitenende scrollen muessen. */
+.start-actions{
+  position:sticky;bottom:-1px;z-index:5;
+  margin:22px -20px -26px;padding:16px 20px 18px;
+  border-radius:0 0 21px 21px;
+  background:linear-gradient(rgba(20,30,24,0),rgba(20,30,24,.94) 34%,rgba(20,30,24,.98));
+}
+.start-actions .big-primary{margin-top:0;width:100%}
+
+/* Bei grossen Klassen werden die Namenskarten kompakter, damit die Liste
+   auf einen Blick erfassbar bleibt. */
+.kid-picker.many{gap:8px}
+.kid-picker.many .kid-card{min-width:88px;min-height:48px;padding:7px 12px;font-size:16px}
+.kid-picker.many .kid-card .kid-stars{font-size:11px}
+@media (max-width:520px){
+  .kid-picker.many .kid-card{min-width:78px;font-size:15px;padding:6px 9px}
 }
 
 </style>
@@ -2538,10 +3082,118 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
 <div class="cloud c1"></div><div class="cloud c2"></div>
 <div class="hill h1"></div><div class="hill h2"></div>
 
+<!-- ================= STARTBILDSCHIRM: WER SPIELT? ================= -->
+<div id="startScreen" class="screen" role="dialog" aria-modal="true" aria-labelledby="startHeadline">
+  <div class="screen-inner">
+    <div class="screen-mascot" id="startMascot"></div>
+    <h1 id="startHeadline" class="screen-title">Wer fährt heute mit?</h1>
+    <p class="screen-sub" id="startClassName">Meine Klasse</p>
+
+    <div id="kidPicker" class="kid-picker"></div>
+
+    <div class="screen-block">
+      <h2 class="screen-h2">Wie schwer sollen die Aufgaben sein?</h2>
+      <p class="screen-note">Du kannst das später jederzeit ändern – oben rechts im Spiel.</p>
+      <div id="diffPicker" class="diff-picker"></div>
+    </div>
+
+    <div class="start-actions">
+      <button id="startBtn" class="primary big-primary" type="button" disabled>Losfahren!</button>
+    </div>
+    <button id="teacherOpenBtn" class="linkbtn" type="button">Für Lehrkräfte und Eltern</button>
+  </div>
+</div>
+
+<!-- ================= LEHRERBEREICH ================= -->
+<div id="teacherScreen" class="screen" role="dialog" aria-modal="true" aria-labelledby="teacherHeadline" hidden>
+  <div class="screen-inner wide">
+    <h1 id="teacherHeadline" class="screen-title">Lehrerbereich</h1>
+
+    <div id="pinGate" class="teacher-gate">
+      <p class="screen-note">Bitte den vierstelligen Code eingeben. Voreingestellt ist <b>1234</b>.</p>
+      <label for="pinInput" class="sr-only">Code</label>
+      <input id="pinInput" class="pin-input" type="password" inputmode="numeric" maxlength="4" autocomplete="off">
+      <div id="pinMsg" class="teacher-msg"></div>
+      <button id="pinBtn" class="primary" type="button">Weiter</button>
+      <button class="linkbtn teacher-close" type="button">Zurück zum Spiel</button>
+    </div>
+
+    <div id="teacherBody" hidden>
+      <div class="teacher-tabs" role="tablist">
+        <button class="tabbtn active" type="button" data-tab="kids" role="tab">Kinder</button>
+        <button class="tabbtn" type="button" data-tab="mascot" role="tab">Maskottchen</button>
+        <button class="tabbtn" type="button" data-tab="progress" role="tab">Fortschritt</button>
+        <button class="tabbtn" type="button" data-tab="share" role="tab">Weitergeben</button>
+      </div>
+
+      <section class="teacher-tabpanel" data-panel="kids">
+        <label class="field">
+          <span>Name der Klasse</span>
+          <input id="classNameInput" type="text" maxlength="20" autocomplete="off">
+        </label>
+        <p class="screen-note">Die Namen erscheinen für die Kinder auf dem Startbildschirm. Sie tauchen auch in einzelnen Textaufgaben auf.</p>
+        <div id="kidEditor" class="kid-editor"></div>
+        <div class="add-row">
+          <label for="newKidInput" class="sr-only">Neuer Name</label>
+          <input id="newKidInput" type="text" maxlength="20" placeholder="Neuer Name" autocomplete="off">
+          <button id="addKidBtn" class="primary small" type="button">Hinzufügen</button>
+        </div>
+        <div id="kidsMsg" class="teacher-msg"></div>
+      </section>
+
+      <section class="teacher-tabpanel" data-panel="mascot" hidden>
+        <div class="mascot-preview" id="mascotPreview"></div>
+        <label class="field">
+          <span>Name des Maskottchens</span>
+          <input id="mascotNameInput" type="text" maxlength="20" autocomplete="off">
+        </label>
+        <div class="field">
+          <span>Tierart</span>
+          <div id="speciesPicker" class="chip-picker"></div>
+        </div>
+        <div class="field">
+          <span>Farbe</span>
+          <div id="colorPicker" class="chip-picker"></div>
+        </div>
+      </section>
+
+      <section class="teacher-tabpanel" data-panel="progress" hidden>
+        <p class="screen-note">Diese Übersicht zeigt nur die Spielstände, die auf <b>diesem Gerät</b> gespeichert sind. Es werden keine Daten übertragen.</p>
+        <div id="progressList" class="progress-list"></div>
+        <button id="resetAllBtn" class="danger-btn" type="button">Alle Spielstände auf diesem Gerät löschen</button>
+      </section>
+
+      <section class="teacher-tabpanel" data-panel="share" hidden>
+        <p class="screen-note">Mit dem Klassencode überträgst du Namensliste und Maskottchen auf ein anderes Gerät – zum Beispiel von deinem Rechner auf die Schul-Tablets oder auf die Geräte zu Hause. Spielstände der Kinder sind darin <b>nicht</b> enthalten.</p>
+        <label class="field">
+          <span>Klassencode</span>
+          <textarea id="shareCode" rows="3" readonly></textarea>
+        </label>
+        <button id="copyCodeBtn" class="primary small" type="button">Code markieren</button>
+        <hr class="teacher-hr">
+        <label class="field">
+          <span>Klassencode von einem anderen Gerät einfügen</span>
+          <textarea id="importCode" rows="3" placeholder="Code hier einfügen"></textarea>
+        </label>
+        <button id="importCodeBtn" class="primary small" type="button">Übernehmen</button>
+        <div id="shareMsg" class="teacher-msg"></div>
+      </section>
+
+      <div class="teacher-foot">
+        <label class="field pin-field">
+          <span>Code für den Lehrerbereich (4 Ziffern)</span>
+          <input id="pinChangeInput" type="text" inputmode="numeric" maxlength="4" autocomplete="off">
+        </label>
+        <button class="linkbtn teacher-close" type="button">Speichern und zurück zum Spiel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <main class="app">
   <header class="brand">
     <div class="brand-icon"><svg class="icon-svg icon-lg"><use href="#i-rail"/></svg></div>
-    <div class="brand-title"><span id="playerTitle" class="player">Timos</span><span class="game">Minecart-Mathe</span></div>
+    <div class="brand-title"><span id="playerTitle" class="player">Timos</span><span id="gameTitle" class="game">Abenteuer mit Nilo</span></div>
     <div class="brand-icon"><svg class="icon-svg icon-lg"><use href="#i-pickaxe"/></svg></div>
   </header>
 
@@ -2553,16 +3205,18 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
       </div>
       <div class="top-right">
         <div class="progress"><svg class="icon-svg icon-sm"><use href="#i-star"/></svg> <span id="levelScore">0</span> / <span id="levelMax">5</span></div>
-        <button id="soundBtn" class="soundbtn" title="Ton an/aus"><svg class="icon-svg icon-md"><use href="#i-speaker"/></svg></button>
+        <button id="diffBtn" class="diffbtn" type="button" aria-label="Schwierigkeit wechseln"><span id="diffBtnLabel">Mittel</span></button>
+        <button id="switchKidBtn" class="soundbtn" type="button" title="Anderes Kind" aria-label="Anderes Kind"><svg class="icon-svg icon-md" aria-hidden="true"><use href="#i-profile"/></svg></button>
+        <button id="soundBtn" class="soundbtn" type="button" title="Ton an/aus" aria-label="Ton an oder aus"><svg class="icon-svg icon-md" aria-hidden="true"><use href="#i-speaker"/></svg></button>
       </div>
     </div>
 
     <div class="main-grid">
       <nav class="sidebar">
-        <button class="sidebtn" data-panel="profile" title="Profil"><svg class="icon-svg icon-md"><use href="#i-profile"/></svg></button>
-        <button class="sidebtn" data-panel="map" title="Karte"><svg class="icon-svg icon-md"><use href="#i-map"/></svg></button>
-        <button class="sidebtn" data-panel="book" title="Hilfe"><svg class="icon-svg icon-md"><use href="#i-book"/></svg></button>
-        <button class="sidebtn" data-panel="settings" title="Einstellungen"><svg class="icon-svg icon-md"><use href="#i-gear"/></svg></button>
+        <button class="sidebtn" type="button" data-panel="profile" title="Profil" aria-label="Profil"><svg class="icon-svg icon-md" aria-hidden="true"><use href="#i-profile"/></svg></button>
+        <button class="sidebtn" type="button" data-panel="map" title="Karte" aria-label="Karte und Level-Auswahl"><svg class="icon-svg icon-md" aria-hidden="true"><use href="#i-map"/></svg></button>
+        <button class="sidebtn" type="button" data-panel="book" title="Hilfe" aria-label="Hilfe"><svg class="icon-svg icon-md" aria-hidden="true"><use href="#i-book"/></svg></button>
+        <button class="sidebtn" type="button" data-panel="settings" title="Einstellungen" aria-label="Einstellungen"><svg class="icon-svg icon-md" aria-hidden="true"><use href="#i-gear"/></svg></button>
       </nav>
 
       <section id="scene" class="scene forest">
@@ -2620,7 +3274,7 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
           <div class="minecart">
             <div class="rim"></div><div class="body"></div><div class="wheel w1"></div><div class="wheel w2"></div>
           </div>
-          <div class="pet"><div class="tail"></div><div class="body"></div><div class="leg l1"></div><div class="leg l2"></div><div class="head"></div><div class="ear"></div><div class="ear e2"></div><div class="eye"></div><div class="snout"></div></div>
+          <div id="cartMascot" class="cart-mascot"></div>
         </div>
 
         <div id="rewardBurst" class="rewardburst"></div>
@@ -2636,6 +3290,7 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
             <div class="h-arm a1"></div><div class="h-arm a2"></div><div class="h-body"></div>
             <div class="h-leg l1"></div><div class="h-leg l2"></div><div class="h-sword"></div>
           </div>
+          <div id="bossMascot" class="boss-mascot"></div>
           <div id="bossEnemy" class="boss-enemy"></div>
           <div id="bossHitFx" class="boss-hitfx">POW!</div>
         </div>
@@ -2643,6 +3298,9 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
 
       <section class="task">
         <div id="question" class="question">7 + 2 = ?</div>
+        <div id="taskDots" class="task-dots" aria-hidden="true"></div>
+        <div id="taskHint" class="task-hint"></div>
+        <label for="answer" class="sr-only">Deine Antwort</label>
         <input id="answer" class="answer" type="number" inputmode="numeric" autocomplete="off">
         <button id="checkBtn" class="primary">Prüfen!</button>
         <div class="tasktip">Jede richtige Aufgabe bringt mindestens 1 Schiene.</div>
@@ -2684,7 +3342,7 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
         <div class="slot" title="Holz"><svg class="icon-svg icon-md"><use href="#i-wood"/></svg><small id="woodCount">0</small></div>
         <div class="slot" title="Stein"><svg class="icon-svg icon-md"><use href="#i-stone"/></svg><small id="stoneCount">0</small></div>
         <div class="slot" title="Schienen"><svg class="icon-svg icon-md"><use href="#i-rail"/></svg><small id="railCount">0</small></div>
-        <div class="slot" title="Smaragde"><svg class="icon-svg icon-md"><use href="#i-emerald"/></svg><small id="emeraldCount">0</small></div>
+        <div class="slot" title="Kristalle"><svg class="icon-svg icon-md"><use href="#i-emerald"/></svg><small id="emeraldCount">0</small></div>
         <div class="slot" title="Gold"><svg class="icon-svg icon-md"><use href="#i-gold"/></svg><small id="goldCount">0</small></div>
         <div class="slot" title="Spitzhacken"><svg class="icon-svg icon-md"><use href="#i-pickaxe"/></svg><small id="pickaxeCount">0</small></div>
       </div>
@@ -2758,7 +3416,7 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
         <div class="resource"><svg class="icon-svg icon-sm"><use href="#i-rail"/></svg> Schienen: <span id="buildRails">0</span></div>
         <div class="resource"><svg class="icon-svg icon-sm"><use href="#i-wood"/></svg> Holz: <span id="buildWood">0</span></div>
         <div class="resource"><svg class="icon-svg icon-sm"><use href="#i-stone"/></svg> Stein: <span id="buildStone">0</span></div>
-        <div class="resource"><svg class="icon-svg icon-sm"><use href="#i-emerald"/></svg> Smaragde: <span id="buildEmerald">0</span></div>
+        <div class="resource"><svg class="icon-svg icon-sm"><use href="#i-emerald"/></svg> Kristalle: <span id="buildEmerald">0</span></div>
         <div class="resource"><svg class="icon-svg icon-sm"><use href="#i-gold"/></svg> Gold: <span id="buildGold">0</span></div>
       </div>
 
@@ -2780,7 +3438,7 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
         <button class="build-btn" data-piece="up">Bergauf<span class="cost">1 Schiene</span></button>
         <button class="build-btn" data-piece="down">Bergab<span class="cost">1 Schiene</span></button>
         <button class="build-btn" data-piece="bridge">Brücke<span class="cost">1 Schiene + 1 Holz</span></button>
-        <button class="build-btn" data-piece="boost">Booster<span class="cost">1 Schiene + 1 Smaragd</span></button>
+        <button class="build-btn" data-piece="boost">Booster<span class="cost">1 Schiene + 1 Kristall</span></button>
         <button class="build-btn tunnel-btn" data-piece="tunnel">Tunnel<span class="cost">3 Schienen + 3 Stein + 1 Spitzhacke</span></button>
         <button class="build-btn loop-btn" data-piece="loop">Looping<span class="cost">5 Schienen + 2 Gold · Booster direkt davor</span></button>
         <button class="build-btn jump-btn" data-piece="jump">Sprung<span class="cost">2 Schienen + 1 Holz · überspringt 1 Feld</span></button>
@@ -2796,7 +3454,7 @@ body.theme-boss{background:radial-gradient(circle at 50% -10%,#3d2456,#1a1226 72
 </main>
 
 <div id="modal" class="overlay">
-  <div class="dialog"><button id="modalClose" class="close">×</button><div id="modalContent"></div></div>
+  <div class="dialog"><button id="modalClose" class="close" type="button" aria-label="Fenster schließen">×</button><div id="modalContent"></div></div>
 </div>
 
 <div id="levelOverlay" class="overlay">
@@ -2817,43 +3475,145 @@ const CONFIG={
   levels:[]
 };
 
+/* ===================================================================== */
+/* ==========  KLASSE, MASKOTTCHEN & SCHWIERIGKEIT  ==================== */
+/* ===================================================================== */
+
+/* ---- Maskottchen: Tierarten und Farben (frei kombinierbar) ---- */
+const MASCOT_SPECIES=[
+  {id:"hippo",   label:"Nilpferd"},
+  {id:"elephant",label:"Elefant"},
+  {id:"bear",    label:"Bär"},
+  {id:"fox",     label:"Fuchs"},
+  {id:"owl",     label:"Eule"},
+  {id:"dragon",  label:"Drache"}
+];
+const MASCOT_COLORS=[
+  {id:"violet",label:"Flieder"},
+  {id:"mint",  label:"Minze"},
+  {id:"gold",  label:"Sonne"},
+  {id:"coral", label:"Koralle"},
+  {id:"sky",   label:"Himmel"},
+  {id:"moss",  label:"Moos"}
+];
+
+/* MASCOT wird nie neu zugewiesen, nur verändert – damit bleiben alle
+   Verweise (z.B. in den Textaufgaben) gültig. */
+const MASCOT={name:"Nilo",species:"hippo",color:"violet"};
+
+/* ---- Standard-Namensliste: Platzhalter, die die Lehrkraft ersetzt ---- */
+const DEFAULT_KIDS=["Anna","Ben","Clara","David","Emma","Finn","Greta","Hannes",
+                    "Ida","Jonas","Klara","Leon","Mia","Noah","Paul","Sophie","Timo","Yara"];
+
+const CLASS_KEY="nilo_klasse_v1";
+const classConfig={
+  className:"Meine Klasse",
+  kids:DEFAULT_KIDS.slice(),
+  pin:"1234"
+};
+
+function sanitizeName(v){
+  /* Nur einfache Namen: keine spitzen Klammern, keine überlangen Eingaben. */
+  return String(v==null?"":v).replace(/[<>&"'`\\\/]/g,"").replace(/\s+/g," ").trim().slice(0,20);
+}
+function nameKey(v){
+  return sanitizeName(v).toLowerCase()
+    .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+    .replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"") || "kind";
+}
+
+function loadClassConfig(){
+  try{
+    const raw=localStorage.getItem(CLASS_KEY);
+    if(!raw) return;
+    const d=JSON.parse(raw);
+    if(!d || typeof d!=="object") return;
+    if(typeof d.className==="string") classConfig.className=sanitizeName(d.className)||"Meine Klasse";
+    if(Array.isArray(d.kids)){
+      const list=d.kids.map(sanitizeName).filter(Boolean);
+      const seen=new Set(), uniq=[];
+      list.forEach(n=>{const k=nameKey(n); if(!seen.has(k)){seen.add(k);uniq.push(n)}});
+      if(uniq.length) classConfig.kids=uniq.slice(0,60);
+    }
+    if(typeof d.pin==="string" && /^\d{4}$/.test(d.pin)) classConfig.pin=d.pin;
+    if(d.mascot && typeof d.mascot==="object"){
+      const n=sanitizeName(d.mascot.name);
+      if(n) MASCOT.name=n;
+      if(MASCOT_SPECIES.some(x=>x.id===d.mascot.species)) MASCOT.species=d.mascot.species;
+      if(MASCOT_COLORS.some(x=>x.id===d.mascot.color))   MASCOT.color=d.mascot.color;
+    }
+  }catch(e){}
+}
+function saveClassConfig(){
+  try{
+    localStorage.setItem(CLASS_KEY,JSON.stringify({
+      className:classConfig.className,
+      kids:classConfig.kids,
+      pin:classConfig.pin,
+      mascot:{name:MASCOT.name,species:MASCOT.species,color:MASCOT.color}
+    }));
+  }catch(e){}
+}
+
+/* Zwei verschiedene Kindernamen für die Textaufgaben. */
+function twoKids(){
+  const pool=classConfig.kids.length>=2 ? classConfig.kids : ["Mia","Ben"];
+  let i=rand(0,pool.length-1), j=rand(0,pool.length-1);
+  if(j===i) j=(j+1)%pool.length;
+  return [pool[i],pool[j]];
+}
+
+/* ---- Schwierigkeitsstufen ---- */
+const DIFFS=[
+  {id:"leicht",label:"Leicht",  stars:"★",         hint:"Kleine Zahlen, mit Punktebildern"},
+  {id:"mittel",label:"Mittel",  stars:"★★",      hint:"Der normale Weg"},
+  {id:"stark", label:"Knifflig",stars:"★★★", hint:"Große Zahlen für Profis"}
+];
+let currentDiff="mittel";
+function diffInfo(){ return DIFFS.find(d=>d.id===currentDiff)||DIFFS[1]; }
+/* Wählt je nach Stufe einen von drei Werten aus. */
+function dPick(leicht,mittel,stark){
+  return currentDiff==="leicht"?leicht:currentDiff==="stark"?stark:mittel;
+}
+function isEasy(){ return currentDiff==="leicht"; }
+
 /* ---- Welten (ohne Bosse) ---- */
 const WORLDS=[
   {title:"Grüner Wald",pack:"plus10",theme:"forest",icon:"i-forest"},
   {title:"Bergwerk",pack:"plus20",theme:"mountain",icon:"i-mountain"},
-  {title:"Diamanthöhle",pack:"minus20",theme:"cave",icon:"i-cave"},
-  {title:"Flusswiese",subtitle:"Plus & Minus bis 20",pack:"mix20",theme:"river",chip:"\u00b120",chipColor:"#72dcff"},
-  {title:"Herbstwald",subtitle:"Plus & Minus bis 30",pack:"mix30easy",theme:"autumnmath",chip:"\u00b130",chipColor:"#f0a04a"},
-  {title:"Schneetal",subtitle:"Plus & Minus bis 40",pack:"mix40easy",theme:"snowmath",chip:"\u00b140",chipColor:"#dff8ff"},
-  {title:"Regenbogenberge",subtitle:"Plus & Minus bis 50",pack:"mix50easy",theme:"rainbowmath",chip:"\u00b150",chipColor:"#ffd85a"},
+  {title:"Kristallhöhle",pack:"minus20",theme:"cave",icon:"i-cave"},
+  {title:"Flusswiese",subtitle:"Plus & Minus bis 20",pack:"mix20",theme:"river",chip:"±20",chipColor:"#72dcff"},
+  {title:"Herbstwald",subtitle:"Plus & Minus bis 30",pack:"mix30easy",theme:"autumnmath",chip:"±30",chipColor:"#f0a04a"},
+  {title:"Schneetal",subtitle:"Plus & Minus bis 40",pack:"mix40easy",theme:"snowmath",chip:"±40",chipColor:"#dff8ff"},
+  {title:"Regenbogenberge",subtitle:"Plus & Minus bis 50",pack:"mix50easy",theme:"rainbowmath",chip:"±50",chipColor:"#ffd85a"},
   {title:"Goldene Stadt",subtitle:"Zehner bis 100",pack:"tens100",theme:"goldcity",chip:"100",chipColor:"#ffd65b"},
-  {title:"R\u00e4tselh\u00f6hle",subtitle:"L\u00fcckenaufgaben",pack:"gapMix",theme:"cave",chip:"?",chipColor:"#b98cff"},
+  {title:"Rätselhöhle",subtitle:"Lückenaufgaben",pack:"gapMix",theme:"cave",chip:"?",chipColor:"#b98cff"},
   {title:"Dorf am Fluss",subtitle:"Textaufgaben",pack:"wordMix",theme:"river",chip:"ABC",chipColor:"#8fe36b"},
-  {title:"Mond",subtitle:"1er-Reihe",pack:"times1",theme:"space",spaceBody:"moon",chip:"1\u00d7",chipColor:"#dfe7ee"},
-  {title:"Merkur",subtitle:"2er-Reihe",pack:"times2",theme:"space",spaceBody:"mercury",chip:"2\u00d7",chipColor:"#d7a06a"},
-  {title:"Venus",subtitle:"3er-Reihe",pack:"times3",theme:"space",spaceBody:"venus",chip:"3\u00d7",chipColor:"#e5a86b"},
-  {title:"Erde",subtitle:"4er-Reihe",pack:"times4",theme:"space",spaceBody:"earth",chip:"4\u00d7",chipColor:"#5ecaff"},
-  {title:"Mars",subtitle:"5er-Reihe",pack:"times5",theme:"space",spaceBody:"mars",chip:"5\u00d7",chipColor:"#e57848"},
-  {title:"Jupiter",subtitle:"6er-Reihe",pack:"times6",theme:"space",spaceBody:"jupiter",chip:"6\u00d7",chipColor:"#d8b07a"},
-  {title:"Saturn",subtitle:"7er-Reihe",pack:"times7",theme:"space",spaceBody:"saturn",chip:"7\u00d7",chipColor:"#d2bc8b"},
-  {title:"Uranus",subtitle:"8er-Reihe",pack:"times8",theme:"space",spaceBody:"uranus",chip:"8\u00d7",chipColor:"#8eeef3"},
-  {title:"Neptun",subtitle:"9er-Reihe",pack:"times9",theme:"space",spaceBody:"neptune",chip:"9\u00d7",chipColor:"#5a97f0"},
-  {title:"Sonne",subtitle:"10er-Reihe",pack:"times10",theme:"space",spaceBody:"sun",chip:"10\u00d7",chipColor:"#ffcb59"}
+  {title:"Mond",subtitle:"1er-Reihe",pack:"times1",theme:"space",spaceBody:"moon",chip:"1×",chipColor:"#dfe7ee"},
+  {title:"Merkur",subtitle:"2er-Reihe",pack:"times2",theme:"space",spaceBody:"mercury",chip:"2×",chipColor:"#d7a06a"},
+  {title:"Venus",subtitle:"3er-Reihe",pack:"times3",theme:"space",spaceBody:"venus",chip:"3×",chipColor:"#e5a86b"},
+  {title:"Erde",subtitle:"4er-Reihe",pack:"times4",theme:"space",spaceBody:"earth",chip:"4×",chipColor:"#5ecaff"},
+  {title:"Mars",subtitle:"5er-Reihe",pack:"times5",theme:"space",spaceBody:"mars",chip:"5×",chipColor:"#e57848"},
+  {title:"Jupiter",subtitle:"6er-Reihe",pack:"times6",theme:"space",spaceBody:"jupiter",chip:"6×",chipColor:"#d8b07a"},
+  {title:"Saturn",subtitle:"7er-Reihe",pack:"times7",theme:"space",spaceBody:"saturn",chip:"7×",chipColor:"#d2bc8b"},
+  {title:"Uranus",subtitle:"8er-Reihe",pack:"times8",theme:"space",spaceBody:"uranus",chip:"8×",chipColor:"#8eeef3"},
+  {title:"Neptun",subtitle:"9er-Reihe",pack:"times9",theme:"space",spaceBody:"neptune",chip:"9×",chipColor:"#5a97f0"},
+  {title:"Sonne",subtitle:"10er-Reihe",pack:"times10",theme:"space",spaceBody:"sun",chip:"10×",chipColor:"#ffcb59"}
 ];
 
 /* ---- Bosse ---- */
 const BOSS_META={
-  creeper :{title:"Creeper-\u00dcberfall",  chip:"\u2620", chipColor:"#7ed36b"},
-  zombie  :{title:"Zombie-Nacht",       chip:"\u2620", chipColor:"#6ab04c"},
-  skeleton:{title:"Skelett-Sch\u00fctzen",  chip:"\u2620", chipColor:"#e8ecef"},
-  spider  :{title:"H\u00f6hlenspinne",      chip:"\u2620", chipColor:"#b0453a"},
-  dragon  :{title:"Der Enderdrache",    chip:"\ud83d\udc09", chipColor:"#a06cff"}
+  boulder    :{title:"Bröckel, der Steinwicht",       article:"Bröckel",           chip:"◆", chipColor:"#9aa6ad"},
+  slime      :{title:"Matschi, der Schlammklecks",     article:"Matschi",            chip:"●", chipColor:"#3fc79a"},
+  gust       :{title:"Wusel, der Wirbelwind",          article:"Wusel",              chip:"↻", chipColor:"#9fd8ef"},
+  batty      :{title:"Flatti, die Höhlenfledermaus",  article:"Flatti",             chip:"▲", chipColor:"#8a63d2"},
+  clouddragon:{title:"Der Wolkendrache",               article:"Der Wolkendrache",   chip:"☁", chipColor:"#3fb8b0"}
 };
 function makeBoss(enemy,tier){
   const m=BOSS_META[enemy];
   return {boss:true,enemy,title:m.title,subtitle:"Boss-Kampf",theme:"boss",pack:tier,chip:m.chip,chipColor:m.chipColor};
 }
-const ENEMY_CYCLE=["creeper","zombie","skeleton","spider","creeper","zombie"];
+const ENEMY_CYCLE=["boulder","slime","gust","batty","boulder","slime"];
 const BOSS_TIERS =["bossEasy","bossEasy","bossMid","bossMid","bossHard","bossHard"];
 const worldToLevel=[];
 (function buildLevels(){
@@ -2866,10 +3626,10 @@ const worldToLevel=[];
       bossN++;
     }
   });
-  L.push(makeBoss("dragon","bossHard"));  // gro\u00dfes Finale
+  L.push(makeBoss("clouddragon","bossHard"));  // großes Finale
   CONFIG.levels=L;
 })();
-/* Alt-Spielst\u00e4nde z\u00e4hlten nur Welten (ohne Bosse, ohne die 2 neuen Welten). */
+/* Alt-Spielstände zählten nur Welten (ohne Bosse, ohne die 2 neuen Welten). */
 function oldWorldToLevelIndex(old){
   let w = old<=7 ? old : old+2;          // 2 neue Welten nach der Goldenen Stadt
   if(w<0) w=0;
@@ -2878,40 +3638,75 @@ function oldWorldToLevelIndex(old){
 }
 
 function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min}
-function timesPack(n){
-  return {label:`${n}er-Reihe`, task(){const b=rand(1,10); return {text:`${b} × ${n} = ?`, answer:b*n}}}
+
+/* Punktebilder: helfen schwaecheren Kindern beim Vorstellen der Menge.
+   Nur bei kleinen Zahlen und nur auf der Stufe "Leicht". */
+function withDots(t,a,b,op){
+  if(isEasy() && a<=12 && b<=12) t.dots={a,b,op};
+  return t;
 }
+
+function timesPack(n){
+  return {
+    label:`${n}er-Reihe`,
+    task(){
+      const maxB=dPick(5,10,10);
+      const b=rand(1,maxB);
+      const t={text:`${b} × ${n} = ?`, answer:b*n};
+      if(isEasy()) t.hint=`${b} × ${n} heißt: ${Array(b).fill(n).join(" + ")}`;
+      else if(currentDiff==="stark" && Math.random()<.35)
+        return gapFrom(`? × ${n} = ${b*n}`, b);
+      return t;
+    }
+  };
+}
+
 function easyMix(max,smallMax=10){
   const plus=Math.random()<.5;
   if(plus){
     const b=rand(1,smallMax);
     const a=rand(0,Math.max(0,max-b));
-    return {text:`${a} + ${b} = ?`,answer:a+b};
+    return withDots({text:`${a} + ${b} = ?`,answer:a+b},a,b,"+");
   }else{
     const b=rand(1,smallMax);
     const a=rand(b,max);
-    return {text:`${a} − ${b} = ?`,answer:a-b};
+    return withDots({text:`${a} − ${b} = ?`,answer:a-b},a,b,"−");
   }
 }
-const PACKS={
-  plus10:{label:"Plus bis 10",task(){const r=rand(2,10),a=rand(1,r-1);return{text:`${a} + ${r-a} = ?`,answer:r}}},
-  plus20:{label:"Plus bis 20",task(){const r=rand(3,20),a=rand(1,r-1);return{text:`${a} + ${r-a} = ?`,answer:r}}},
-  minus20:{label:"Minus bis 20",task(){const a=rand(2,20),b=rand(1,a);return{text:`${a} − ${b} = ?`,answer:a-b}}},
 
-  mix20:{label:"Plus & Minus bis 20",task(){return easyMix(20,8)}},
-  mix30easy:{label:"Plus & Minus bis 30",task(){return easyMix(30,9)}},
-  mix40easy:{label:"Plus & Minus bis 40",task(){return easyMix(40,10)}},
-  mix50easy:{label:"Plus & Minus bis 50",task(){return easyMix(50,10)}},
+const PACKS={
+  plus10:{label:"Plus",task(){
+    const m=dPick(6,10,16);
+    const r=rand(2,m),a=rand(1,r-1);
+    return withDots({text:`${a} + ${r-a} = ?`,answer:r},a,r-a,"+");
+  }},
+  plus20:{label:"Plus",task(){
+    const m=dPick(12,20,30);
+    const r=rand(3,m),a=rand(1,r-1);
+    return withDots({text:`${a} + ${r-a} = ?`,answer:r},a,r-a,"+");
+  }},
+  minus20:{label:"Minus",task(){
+    const m=dPick(12,20,30);
+    const a=rand(2,m),b=rand(1,a);
+    return withDots({text:`${a} − ${b} = ?`,answer:a-b},a,b,"−");
+  }},
+
+  mix20:{label:"Plus & Minus",task(){return easyMix(dPick(12,20,30),dPick(6,8,10))}},
+  mix30easy:{label:"Plus & Minus",task(){return easyMix(dPick(18,30,45),dPick(6,9,12))}},
+  mix40easy:{label:"Plus & Minus",task(){return easyMix(dPick(20,40,60),dPick(7,10,14))}},
+  mix50easy:{label:"Plus & Minus",task(){return easyMix(dPick(24,50,80),dPick(8,10,16))}},
+
   tens100:{
-    label:"Zehner bis 100",
+    label:"Zehnerzahlen",
     task(){
+      const top=dPick(5,10,10);
       const plus=Math.random()<.5;
       if(plus){
-        const a=rand(1,8)*10;
-        const b=rand(1,10-a/10)*10;
+        const a=rand(1,top-1)*10;
+        const b=rand(1,top-a/10)*10;
         return {text:`${a} + ${b} = ?`,answer:a+b};
       }else{
-        const a=rand(2,10)*10;
+        const a=rand(2,top)*10;
         const b=rand(1,a/10)*10;
         return {text:`${a} − ${b} = ?`,answer:a-b};
       }
@@ -2944,7 +3739,7 @@ function gapMixTask(max, allowTimes){
   const b=rand(1,max-1), c=rand(1,max-b), ans=b+c; return gapFrom(`? − ${b} = ${c}`, ans);
 }
 
-/* ---- Minecraft-Textaufgaben ---- */
+/* ---- Textaufgaben aus Nilos Welt ---- */
 function wp(text,answer){return {text,answer,kind:"word"}}
 const WORD_DIFF={
   easy:{add:12,sub:12,mulN:4,mulA:5},
@@ -2952,18 +3747,20 @@ const WORD_DIFF={
   hard:{add:60,sub:60,mulN:10,mulA:10}
 };
 const WORD_TEMPLATES=[
-  d=>{const a=rand(3,d.add),b=rand(2,d.add);return wp(`Du hast ${a} Erze und findest ${b} weitere. Wie viele Erze hast du jetzt?`,a+b)},
-  d=>{const a=rand(6,d.sub),b=rand(1,a-1);return wp(`In deinem Rucksack sind ${a} Fackeln. Du benutzt ${b} davon. Wie viele bleiben übrig?`,a-b)},
-  d=>{const n=rand(2,d.mulN),a=rand(2,d.mulA);return wp(`Du baust ${n} Truhen. In jede legst du ${a} Goldbarren. Wie viele Goldbarren sind das?`,n*a)},
-  d=>{const a=rand(4,d.sub),b=rand(1,a-1);return wp(`Du gräbst ${a} Diamanten aus, ${b} fallen in die Lava. Wie viele Diamanten hast du noch?`,a-b)},
-  d=>{const a=rand(3,d.add),b=rand(2,d.add);return wp(`Steve hat ${a} Äpfel. Alex gibt ihm ${b} dazu. Wie viele Äpfel hat Steve jetzt?`,a+b)},
-  d=>{const n=rand(2,d.mulN),a=rand(2,d.mulA);return wp(`Ein Creeper lässt ${a} Schießpulver fallen. Du besiegst ${n} Creeper. Wie viel Schießpulver hast du?`,n*a)},
-  d=>{const a=rand(5,d.sub),b=rand(1,a-1);return wp(`Auf dem Feld wachsen ${a} Weizen. Du erntest ${b}. Wie viele Weizen stehen noch?`,a-b)},
+  d=>{const a=rand(3,d.add),b=rand(2,d.add);return wp(`Du hast ${a} Steine und findest ${b} weitere. Wie viele Steine hast du jetzt?`,a+b)},
+  d=>{const a=rand(6,d.sub),b=rand(1,a-1);return wp(`In deinem Rucksack sind ${a} Laternen. Du verschenkst ${b} davon. Wie viele bleiben übrig?`,a-b)},
+  d=>{const n=rand(2,d.mulN),a=rand(2,d.mulA);return wp(`Du baust ${n} Truhen. In jede legst du ${a} Goldstücke. Wie viele Goldstücke sind das?`,n*a)},
+  d=>{const a=rand(4,d.sub),b=rand(1,a-1);return wp(`Du gräbst ${a} Kristalle aus, ${b} rollen den Berg hinunter. Wie viele hast du noch?`,a-b)},
+  d=>{const a=rand(3,d.add),b=rand(2,d.add);const k=twoKids();return wp(`${k[0]} hat ${a} Äpfel. ${k[1]} legt noch ${b} dazu. Wie viele Äpfel sind es zusammen?`,a+b)},
+  d=>{const n=rand(2,d.mulN),a=rand(2,d.mulA);return wp(`An jedem Beerenbusch hängen ${a} Beeren. Du pflückst ${n} Büsche leer. Wie viele Beeren sind das?`,n*a)},
+  d=>{const a=rand(5,d.sub),b=rand(1,a-1);return wp(`Auf dem Feld wachsen ${a} Sonnenblumen. Du schneidest ${b} ab. Wie viele stehen noch?`,a-b)},
   d=>{const a=rand(3,d.add),b=rand(2,d.add);return wp(`Du angelst ${a} Fische und fängst dann noch ${b}. Wie viele Fische hast du?`,a+b)},
   d=>{const n=rand(2,d.mulN),a=rand(2,d.mulA);return wp(`Du hast ${n} Loren mit je ${a} Blöcken. Wie viele Blöcke sind das insgesamt?`,n*a)},
-  d=>{const a=rand(5,d.sub),b=rand(1,a-1);return wp(`${a} Zombies kommen in der Nacht, ${b} verschwinden im Sonnenlicht. Wie viele bleiben?`,a-b)},
-  d=>{const a=rand(3,d.add),b=rand(2,d.add);return wp(`Du hast ${a} Smaragde und ein Dorfbewohner schenkt dir ${b}. Wie viele Smaragde hast du?`,a+b)},
-  d=>{const n=rand(2,d.mulN),a=rand(2,d.mulA);return wp(`Du legst ${n} Reihen mit je ${a} Schienen. Wie viele Schienen brauchst du?`,n*a)}
+  d=>{const a=rand(5,d.sub),b=rand(1,a-1);return wp(`${a} Fledermäuse schlafen in der Höhle. ${b} fliegen hinaus. Wie viele hängen noch da?`,a-b)},
+  d=>{const a=rand(3,d.add),b=rand(2,d.add);return wp(`Du hast ${a} Kristalle und ${MASCOT.name} schenkt dir ${b} dazu. Wie viele Kristalle hast du?`,a+b)},
+  d=>{const n=rand(2,d.mulN),a=rand(2,d.mulA);return wp(`Du legst ${n} Reihen mit je ${a} Schienen. Wie viele Schienen brauchst du?`,n*a)},
+  d=>{const a=rand(4,d.sub),b=rand(1,a-1);const k=twoKids();return wp(`${k[0]} sammelt ${a} Muscheln und schenkt ${k[1]} davon ${b}. Wie viele behält ${k[0]}?`,a-b)},
+  d=>{const n=rand(2,d.mulN),a=rand(2,d.mulA);return wp(`${MASCOT.name} trägt ${n} Körbe mit je ${a} Pilzen. Wie viele Pilze sind das?`,n*a)}
 ];
 function wordTask(diff){ const d=WORD_DIFF[diff]||WORD_DIFF.mid; return WORD_TEMPLATES[rand(0,WORD_TEMPLATES.length-1)](d); }
 
@@ -2972,24 +3769,24 @@ function bossTask(gapMax, wordDiff, allowTimesGap){
   return Math.random()<.5 ? gapMixTask(gapMax, allowTimesGap) : wordTask(wordDiff);
 }
 Object.assign(PACKS,{
-  gapMix :{label:"Lückenaufgaben", task(){return gapMixTask(20,false)}},
-  wordMix:{label:"Textaufgaben",   task(){return wordTask("mid")}},
-  bossEasy:{label:"Boss – leicht", task(){return bossTask(15,"easy",false)}},
-  bossMid :{label:"Boss – mittel", task(){return bossTask(40,"mid", true )}},
-  bossHard:{label:"Boss – schwer", task(){return bossTask(60,"hard",true )}}
+  gapMix :{label:"Lückenaufgaben", task(){return gapMixTask(dPick(12,20,35), currentDiff==="stark")}},
+  wordMix:{label:"Textaufgaben",   task(){return wordTask(dPick("easy","mid","hard"))}},
+  bossEasy:{label:"Gegenspieler",  task(){return bossTask(dPick(10,15,25), dPick("easy","easy","mid"),  false)}},
+  bossMid :{label:"Gegenspieler",  task(){return bossTask(dPick(20,40,50), dPick("easy","mid","hard"),  currentDiff!=="leicht")}},
+  bossHard:{label:"Gegenspieler",  task(){return bossTask(dPick(25,60,80), dPick("mid","hard","hard"),  currentDiff!=="leicht")}}
 });
 
 /* ---- Gegner-Grafiken ---- */
 const ENEMY_HTML={
-  creeper:`<div class="cr-head"><div class="cr-eye e1"></div><div class="cr-eye e2"></div><div class="cr-mouth"></div></div><div class="cr-body"></div><div class="cr-foot f1"></div><div class="cr-foot f2"></div>`,
-  zombie:`<div class="z-arm a1"></div><div class="z-arm a2"></div><div class="z-head"><div class="z-eye e1"></div><div class="z-eye e2"></div></div><div class="z-body"></div><div class="z-leg l1"></div><div class="z-leg l2"></div>`,
-  skeleton:`<div class="s-head"><div class="s-eye e1"></div><div class="s-eye e2"></div></div><div class="s-spine"></div><div class="s-rib r1"></div><div class="s-rib r2"></div><div class="s-rib r3"></div><div class="s-leg l1"></div><div class="s-leg l2"></div><div class="s-bow"></div>`,
-  spider:`<div class="sp-leg spl1"></div><div class="sp-leg spl2"></div><div class="sp-leg spl3"></div><div class="sp-leg spr1"></div><div class="sp-leg spr2"></div><div class="sp-leg spr3"></div><div class="sp-body"></div><div class="sp-head"></div><div class="sp-eye e1"></div><div class="sp-eye e2"></div>`,
-  dragon:`<div class="d-tail"></div><div class="d-wing w2"></div><div class="d-body"></div><div class="d-neck"></div><div class="d-head"></div><div class="d-eye"></div><div class="d-wing w1"></div>`
+  boulder:`<div class="b-foot f1"></div><div class="b-foot f2"></div><div class="b-body"></div><div class="b-arm a1"></div><div class="b-arm a2"></div><div class="b-moss"></div><div class="b-eye e1"></div><div class="b-eye e2"></div><div class="b-mouth"></div>`,
+  slime:`<div class="s-blob"></div><div class="s-shine"></div><div class="s-eye e1"></div><div class="s-eye e2"></div><div class="s-mouth"></div>`,
+  gust:`<div class="w-ring r1"></div><div class="w-ring r2"></div><div class="w-ring r3"></div><div class="w-face"><div class="w-eye e1"></div><div class="w-eye e2"></div><div class="w-mouth"></div></div>`,
+  batty:`<div class="bt-wing w1"></div><div class="bt-wing w2"></div><div class="bt-ear e1"></div><div class="bt-ear e2"></div><div class="bt-body"></div><div class="bt-eye e1"></div><div class="bt-eye e2"></div><div class="bt-tooth"></div>`,
+  clouddragon:`<div class="d-tail"></div><div class="d-wing w2"></div><div class="d-body"></div><div class="d-belly"></div><div class="d-neck"></div><div class="d-head"></div><div class="d-horn"></div><div class="d-eye"></div><div class="d-wing w1"></div>`
 };
 function bossEnemyLabel(){
-  const m={creeper:"Der Creeper",zombie:"Der Zombie",skeleton:"Das Skelett",spider:"Die Spinne",dragon:"Der Drache"};
-  return m[currentLevel().enemy]||"Der Gegner";
+  const m=BOSS_META[currentLevel().enemy];
+  return m ? m.article : "Der Gegenspieler";
 }
 function isBoss(){ return !!currentLevel().boss; }
 
@@ -2998,7 +3795,7 @@ function renderEnemy(type){
   const e=$("bossEnemy"); if(!e) return;
   e.className="boss-enemy "+type;
   e.innerHTML=ENEMY_HTML[type]||"";
-  const arena=$("bossArena"); if(arena) arena.classList.toggle("end", type==="dragon");
+  const arena=$("bossArena"); if(arena) arena.classList.toggle("end", type==="clouddragon");
 }
 function updateBossArena(){
   const lvl=currentLevel(), scene=$("scene"), arena=$("bossArena");
@@ -3060,7 +3857,7 @@ const BUILD_THEMES=[
 
 const REWARDS={
   rare:[
-    {id:"emerald",icon:"i-emerald",label:"Smaragd"},
+    {id:"emerald",icon:"i-emerald",label:"Kristall"},
     {id:"gold",icon:"i-gold",label:"Gold"},
     {id:"pickaxe",icon:"i-pickaxe",label:"Spitzhacke"}
   ]
@@ -3138,50 +3935,138 @@ const Sound={
   }
 };
 
-const SAVE_KEY="minecart_final_v66";
-const LEGACY_KEYS=[SAVE_KEY,"minecart_boss_v65","minecart_boss_v64","minecart_longtrack_v63","minecart_tunnel_v62","minecart_loop_gold_v54","minecart_deco_camera_v52","minecart_plusminus_v5","minecart_weltraum_v4","minecart_builder_bg_v38","minecart_artpass_v37","minecart_polish_state_v36","minecart_polish_state"];
+/* ===================================================================== */
+/* ==========  SPIELSTAENDE: EIN PROFIL PRO KIND  ====================== */
+/* ===================================================================== */
 
-function loadState(){
-  for(const key of LEGACY_KEYS){
-    try{
-      const raw=localStorage.getItem(key);
-      if(!raw) continue;
-      const data=JSON.parse(raw);
-      if(data && typeof data==="object"){
-        let loadedLevel=Number.isInteger(data.levelIndex)?data.levelIndex:0;
+const PROFILE_PREFIX="nilo_spielstand_v1_";
+/* Alte Einzel-Spielstaende aus den Vorversionen (ohne Namensauswahl). */
+const LEGACY_KEYS=["minecart_final_v66","minecart_boss_v65","minecart_boss_v64","minecart_longtrack_v63","minecart_tunnel_v62","minecart_loop_gold_v54","minecart_deco_camera_v52","minecart_plusminus_v5","minecart_weltraum_v4","minecart_builder_bg_v38","minecart_artpass_v37","minecart_polish_state_v36","minecart_polish_state"];
+const LEGACY_OWNER="Timo";   // Der alte Spielstand gehoerte diesem Kind.
+const NEW_KEYS=["minecart_final_v66","minecart_boss_v65","minecart_boss_v64"];
 
-        // In v4 begann das 1×1 schon bei Levelindex 3.
-        // In v5 liegen jetzt fünf neue Plus-/Minus-Welten davor.
-        if(key==="minecart_weltraum_v4" && loadedLevel>=3){
-          loadedLevel+=5;
-        }
+let currentKid=null;
 
-        // v6.4 (boss_v64) hat bereits die neue Level-Struktur -> nicht umrechnen.
-        if(![SAVE_KEY,"minecart_boss_v65","minecart_boss_v64"].includes(key)){ loadedLevel = oldWorldToLevelIndex(loadedLevel); }
-        state.levelIndex=loadedLevel;
-        state.levelScore=Number.isInteger(data.levelScore)?data.levelScore:0;
-        state.totalStars=Number.isInteger(data.totalStars)?data.totalStars:0;
-        state.currentTask=null;
-        state.items={...state.items,...(data.items||{})};
-        if(!data.items || !Number.isFinite(data.items.gold)){
-          // Existing players receive some gold for stars they already earned.
-          state.items.gold=Math.floor(state.totalStars/20);
-        }
-        if(Array.isArray(data.build)){
-          state.build=Array.from({length:BUILD_SLOT_COUNT},(_,i)=>data.build[i]??null);
-        }
-        state.buildThemeIndex=Number.isInteger(data.buildThemeIndex)?data.buildThemeIndex:0;
-        state.decorations={...state.decorations,...(data.decorations||{})};
-        if(Array.isArray(data.placedDecos)){
-          state.placedDecos=Array.from({length:BUILD_SLOT_COUNT},(_,i)=>data.placedDecos[i]??null);
-        }
-        break;
-      }
-    }catch(e){}
+function profileKey(name){ return PROFILE_PREFIX+nameKey(name); }
+
+function defaultState(){
+  return {
+    levelIndex:0,levelScore:0,totalStars:0,currentTask:null,
+    items:{wood:0,stone:0,rail:0,emerald:0,gold:0,pickaxe:0},
+    build:Array(BUILD_SLOT_COUNT).fill(null),
+    buildThemeIndex:0,
+    decorations:{tree:0,flower:0,sun:0,mushroom:0,bush:0,torch:0,star:0,crystal:0,bird:0,bee:0,frog:0,butterfly:0,cloud:0,pumpkin:0,chest:0,rainbow:0},
+    placedDecos:Array(BUILD_SLOT_COUNT).fill(null)
+  };
+}
+function resetState(){
+  const d=defaultState();
+  Object.keys(state).forEach(k=>{ delete state[k]; });
+  Object.assign(state,d);
+}
+
+/* Uebernimmt die Werte aus einem gespeicherten Objekt in den laufenden state.
+   Alles wird geprueft – kaputte oder manipulierte Daten koennen das Spiel
+   nicht durcheinanderbringen. */
+function applySaved(data,key){
+  let loadedLevel=Number.isInteger(data.levelIndex)?data.levelIndex:0;
+  if(key){
+    // Alte Spielstaende zaehlten teils nur Welten statt Level.
+    if(key==="minecart_weltraum_v4" && loadedLevel>=3) loadedLevel+=5;
+    if(!NEW_KEYS.includes(key)) loadedLevel=oldWorldToLevelIndex(loadedLevel);
   }
+  state.levelIndex=loadedLevel;
+  state.levelScore=Number.isInteger(data.levelScore)?data.levelScore:0;
+  state.totalStars=Number.isInteger(data.totalStars)?data.totalStars:0;
+  state.currentTask=null;
+
+  // Nur bekannte Materialien uebernehmen – sonst kann die Sammlung abstuerzen.
+  const fresh=defaultState();
+  Object.keys(fresh.items).forEach(k=>{
+    const v=(data.items||{})[k];
+    state.items[k]=Number.isFinite(v)&&v>=0?Math.floor(v):0;
+  });
+  if(!data.items || !Number.isFinite((data.items||{}).gold)){
+    state.items.gold=Math.floor(state.totalStars/20);
+  }
+  Object.keys(fresh.decorations).forEach(k=>{
+    const v=(data.decorations||{})[k];
+    state.decorations[k]=Number.isFinite(v)&&v>=0?Math.floor(v):0;
+  });
+
+  if(Array.isArray(data.build)){
+    state.build=Array.from({length:BUILD_SLOT_COUNT},(_,i)=>
+      typeof data.build[i]==="string"?data.build[i]:null);
+  }
+  if(Array.isArray(data.placedDecos)){
+    state.placedDecos=Array.from({length:BUILD_SLOT_COUNT},(_,i)=>
+      typeof data.placedDecos[i]==="string"?data.placedDecos[i]:null);
+  }
+  state.buildThemeIndex=Number.isInteger(data.buildThemeIndex)?data.buildThemeIndex:0;
+
+  if(DIFFS.some(d=>d.id===data.difficulty)) currentDiff=data.difficulty;
+  else currentDiff="mittel";
+}
+
+function readJSON(key){
+  try{
+    const raw=localStorage.getItem(key);
+    if(!raw) return null;
+    const d=JSON.parse(raw);
+    return (d && typeof d==="object" && !Array.isArray(d)) ? d : null;
+  }catch(e){ return null; }
+}
+
+/* Laedt den Spielstand eines Kindes. Existiert noch keiner, faengt das Kind
+   bei null an – ausser beim urspruenglichen Spieler, dessen alter
+   Spielstand aus den Vorversionen einmalig uebernommen wird. */
+function loadStateFor(name){
+  resetState();
+  currentDiff="mittel";
+  currentKid=sanitizeName(name);
+  CONFIG.playerName=currentKid;
+
+  const own=readJSON(profileKey(currentKid));
+  if(own){
+    applySaved(own,null);
+  }else if(nameKey(currentKid)===nameKey(LEGACY_OWNER)){
+    for(const key of LEGACY_KEYS){
+      const d=readJSON(key);
+      if(d){ applySaved(d,key); break; }
+    }
+  }
+
   migrateBuildV66();
   if(state.buildThemeIndex>=BUILD_THEMES.length) state.buildThemeIndex=0;
   if(state.levelIndex<0 || state.levelIndex>=CONFIG.levels.length) state.levelIndex=0;
+  if(state.levelScore<0 || state.levelScore>CONFIG.tasksPerLevel) state.levelScore=0;
+}
+
+function save(){
+  if(!currentKid) return;
+  try{
+    localStorage.setItem(profileKey(currentKid),JSON.stringify({
+      levelIndex:state.levelIndex,levelScore:state.levelScore,totalStars:state.totalStars,
+      items:state.items,build:state.build,buildThemeIndex:state.buildThemeIndex,
+      decorations:state.decorations,placedDecos:state.placedDecos,
+      difficulty:currentDiff
+    }));
+  }catch(e){}
+}
+
+/* Kurzuebersicht fuer den Lehrerbereich, ohne den laufenden state anzufassen. */
+function profileSummary(name){
+  const d=readJSON(profileKey(name));
+  if(!d) return null;
+  const lvl=Number.isInteger(d.levelIndex)?d.levelIndex:0;
+  return {
+    stars:Number.isInteger(d.totalStars)?d.totalStars:0,
+    level:Math.min(Math.max(lvl,0),CONFIG.levels.length-1)+1,
+    difficulty:DIFFS.some(x=>x.id===d.difficulty)?d.difficulty:"mittel"
+  };
+}
+function deleteProfile(name){
+  try{ localStorage.removeItem(profileKey(name)); }catch(e){}
 }
 
 function migrateBuildV66(){
@@ -3210,10 +4095,6 @@ function migrateBuildV66(){
   }else{
     state.build=old.map(v=>v==="jump"?"jump-legacy":v);
   }
-}
-
-function save(){
-  try{localStorage.setItem(SAVE_KEY,JSON.stringify(state))}catch(e){}
 }
 
 function currentLevel(){return CONFIG.levels[state.levelIndex]}
@@ -3291,13 +4172,55 @@ function makeTask(){
   const q=$("question");
   q.className="question"+(t.kind==="word"?" word":"")+(t.kind==="gap"?" gap":"");
   if(t.html) q.innerHTML=t.html; else q.textContent=t.text;
+  renderTaskHelp(t);
   $("answer").value="";
   $("answer").focus()
+}
+
+/* Zeichnet das Punktebild und die Hilfezeile unter der Aufgabe. */
+function renderTaskHelp(t){
+  const dots=$("taskDots"), hint=$("taskHint");
+  if(dots){
+    dots.innerHTML="";
+    if(t.dots){
+      const {a,b,op}=t.dots;
+      const group=n=>{
+        const g=document.createElement("div");
+        g.className="dot-group";
+        for(let i=0;i<n;i++){const d=document.createElement("span");d.className="dot";g.appendChild(d)}
+        return g;
+      };
+      if(op==="+"){
+        dots.appendChild(group(a));
+        const o=document.createElement("span");o.className="dot-op";o.textContent="+";dots.appendChild(o);
+        dots.appendChild(group(b));
+      }else{
+        // Beim Minus zeigen wir die Gesamtmenge, davon b Punkte durchgestrichen.
+        const g=document.createElement("div");
+        g.className="dot-group";
+        for(let i=0;i<a;i++){
+          const d=document.createElement("span");
+          d.className="dot"+(i>=a-b?" gone":"");
+          g.appendChild(d);
+        }
+        dots.appendChild(g);
+      }
+      dots.classList.add("show");
+    }else{
+      dots.classList.remove("show");
+    }
+  }
+  if(hint){
+    hint.textContent=t.hint||"";
+    hint.classList.toggle("show",!!t.hint);
+  }
 }
 
 function updateUI(){
   const l=currentLevel();
   $("playerTitle").textContent=CONFIG.playerName+"s";
+  $("gameTitle").textContent="Abenteuer mit "+MASCOT.name;
+  $("diffBtnLabel").textContent=diffInfo().label;
   $("levelName").textContent=`Level ${state.levelIndex+1}: ${l.title}${l.subtitle ? ' – ' + l.subtitle : ''}`;
   $("levelScore").textContent=state.levelScore;
   $("levelMax").textContent=CONFIG.tasksPerLevel;
@@ -3333,7 +4256,7 @@ function praise(){return PRAISE[Math.floor(Math.random()*PRAISE.length)]}
 
 function riderReact(type){
   const r=document.querySelector("#cartWrap .rider");
-  const pet=document.querySelector("#cartWrap .pet");
+  const pet=$("cartMascot");
   if(r){
     r.classList.remove("cheer","oops");void r.offsetWidth;
     r.classList.add(type==="cheer"?"cheer":"oops");
@@ -3393,7 +4316,7 @@ function rewardOne(){
     ];
     bonus=extras[Math.floor(Math.random()*extras.length)]
   }else if(roll<.72){
-    bonus={id:"emerald",icon:"i-emerald",label:"Smaragd"}
+    bonus={id:"emerald",icon:"i-emerald",label:"Kristall"}
   }else if(roll<.78){
     bonus={id:"pickaxe",icon:"i-pickaxe",label:"Spitzhacke"}
   }else if(roll<.86){
@@ -4368,32 +5291,78 @@ async function ride(){
 }
 
 /* ---------- PANELS ---------- */
+
+/* Macht Text sicher fuer die Anzeige. Namen kommen aus der Klassenliste –
+   so kann dort auch bei Tippfehlern nie HTML im Spiel landen. */
+function esc(v){
+  return String(v==null?"":v)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+/* Direkter Sprung in eine Welt ueber die Karte. */
+function jumpToLevel(i){
+  if(!Number.isInteger(i) || i<0 || i>=CONFIG.levels.length) return;
+  state.levelIndex=i;
+  state.levelScore=0;
+  save();
+  closeBuilder();
+  $("modal").classList.remove("open");
+  updateUI();
+  makeTask();
+  feedback(`Auf zur Welt: ${currentLevel().title}!`,"#9cff86");
+}
+
 function openPanel(kind){
   let h="";
   if(kind==="profile"){
-    h=`<h2>${svgIcon("i-profile","icon-lg")} ${CONFIG.playerName}</h2><p>Sterne: <b>${state.totalStars}</b></p><p>Level: <b>${state.levelIndex+1}</b> / ${CONFIG.levels.length}</p>`
+    h=`<h2>${svgIcon("i-profile","icon-lg")} ${esc(CONFIG.playerName)}</h2>`
+     +`<p>Sterne: <b>${state.totalStars}</b></p>`
+     +`<p>Level: <b>${state.levelIndex+1}</b> / ${CONFIG.levels.length}</p>`
+     +`<p>Stufe: <b>${esc(diffInfo().label)}</b></p>`
+     +`<p>Dein Begleiter: <b>${esc(MASCOT.name)}</b></p>`
   }
   if(kind==="map"){
     const items=CONFIG.levels.map((lvl,i)=>{
-      const now = i===state.levelIndex ? " style=\"color:#ffd23f;font-weight:1000\"" : "";
-      const tag = lvl.boss ? " — <b>Boss</b>" : (lvl.subtitle ? ` – ${lvl.subtitle}` : "");
-      return `<li${now}>Level ${i+1}: ${lvl.title}${tag}</li>`;
+      const now = i===state.levelIndex ? " current" : "";
+      const tag = lvl.boss ? " — <b>Gegenspieler</b>" : (lvl.subtitle ? ` – ${esc(lvl.subtitle)}` : "");
+      return `<button type="button" class="map-level${now}" data-level="${i}">`
+           + `<span class="map-nr">${i+1}</span><span class="map-name">${esc(lvl.title)}${tag}</span></button>`;
     }).join("");
-    h=`<h2>${svgIcon("i-map","icon-lg")} Karte</h2><div style="max-height:52vh;overflow:auto"><ol style="text-align:left;display:inline-block;margin:0;padding-left:20px">${items}</ol></div>`
+    h=`<h2>${svgIcon("i-map","icon-lg")} Karte</h2>`
+     +`<p class="map-note">Tippe auf eine Welt, um direkt dorthin zu springen. Deine Sterne und dein Material bleiben erhalten.</p>`
+     +`<div class="map-list">${items}</div>`;
   }
   if(kind==="book"){
-    h=`<h2>${svgIcon("i-book","icon-lg")} So geht's</h2><p>Rechnen → Materialien sammeln → Strecke bauen → Lore fahren lassen.</p><p>Es gibt Plus-/Minus-Welten, eine <b>Rätselhöhle</b> mit Lückenaufgaben (z. B. 7 + ? = 12), ein <b>Dorf</b> mit Minecraft-Textaufgaben und die Weltraum-Level mit dem Einmaleins.</p><p><b>Boss-Level:</b> Nach je drei Welten wartet ein Gegner (Creeper, Zombie, Skelett, Spinne … und am Ende der Enderdrache). Statt zu fahren, besiegst du ihn, indem du Lücken- und Textaufgaben löst – jede richtige Antwort ist ein Treffer!</p><p>Im Baubereich wird alle 20 Sterne ein neuer Hintergrund freigeschaltet. Manche Deko ist häufig, andere seltener und manche gibt es erst ab einer bestimmten Sternzahl. So kannst du mit der Zeit immer mehr sammeln und platzieren.</p><p><b>Tunnel:</b> Er braucht 3 freie Bauplätze, 3 Schienen, 3 Stein und 1 Spitzhacke. Die Lore fährt sichtbar durch den Felsen.</p><p><b>Looping:</b> Er braucht 5 freie Bauplätze, 5 Schienen und 2 Gold. Direkt davor muss ein Booster liegen, damit die Lore genug Schwung hat.</p><p><b>Sprungschanze:</b> Sie kostet 2 Schienen und 1 Holz und belegt drei Felder: Rampe, echte freie Lücke und Landung.</p><p><b>Korkenzieher:</b> Das ist Timos seitlicher Looping. Er braucht 4 freie Bauplätze, 4 Schienen, 2 Gold und direkt davor einen Booster.</p>`
+    h=`<h2>${svgIcon("i-book","icon-lg")} So geht's</h2>`
+     +`<p>Rechnen → Materialien sammeln → Strecke bauen → Lore fahren lassen. ${esc(MASCOT.name)} fährt immer mit.</p>`
+     +`<p><b>Schwierigkeit:</b> Oben rechts steht deine Stufe (${esc(diffInfo().label)}). Tippe darauf, um zwischen <b>Leicht</b>, <b>Mittel</b> und <b>Knifflig</b> zu wechseln – so oft du willst. Auf <b>Leicht</b> bekommst du bei kleinen Aufgaben Punktebilder als Hilfe.</p>`
+     +`<p><b>Karte:</b> Über die Karte links kannst du direkt in jede Welt springen. Deine Sterne bleiben dabei erhalten.</p>`
+     +`<p>Es gibt Plus-/Minus-Welten, eine <b>Rätselhöhle</b> mit Lückenaufgaben (z. B. 7 + ? = 12), ein <b>Dorf</b> mit Textaufgaben und die Weltraum-Level mit dem Einmaleins.</p>`
+     +`<p><b>Gegenspieler:</b> Nach je drei Welten wartet einer (Bröckel, Matschi, Wusel, Flatti … und am Ende der Wolkendrache). Statt zu fahren, löst du Lücken- und Textaufgaben – jede richtige Antwort ist ein Treffer!</p>`
+     +`<p>Im Baubereich wird alle 20 Sterne ein neuer Hintergrund freigeschaltet. Manche Deko ist häufig, andere seltener und manche gibt es erst ab einer bestimmten Sternzahl.</p>`
+     +`<p><b>Tunnel:</b> 3 freie Bauplätze, 3 Schienen, 3 Stein und 1 Spitzhacke.<br>`
+     +`<b>Looping:</b> 5 freie Bauplätze, 5 Schienen und 2 Gold – direkt davor muss ein Booster liegen.<br>`
+     +`<b>Sprungschanze:</b> 2 Schienen und 1 Holz, belegt drei Felder.<br>`
+     +`<b>Korkenzieher:</b> 4 freie Bauplätze, 4 Schienen, 2 Gold und ein Booster davor.</p>`
   }
   if(kind==="settings"){
-    h=`<h2>${svgIcon("i-gear","icon-lg")} Einstellungen</h2><p>Mit dem Lautsprecher oben kannst du den Ton an- und ausschalten.</p><p>Die große Szene ändert sich mit dem Level. Die Bau-Hintergründe können weiterhin separat gewählt werden.</p>`
+    h=`<h2>${svgIcon("i-gear","icon-lg")} Einstellungen</h2>`
+     +`<p>Mit dem Lautsprecher oben schaltest du den Ton an und aus.</p>`
+     +`<p>Mit dem Knopf daneben (${esc(diffInfo().label)}) wechselst du die Schwierigkeit.</p>`
+     +`<p>Mit dem Kopf-Symbol oben rechts kommst du zurück zur Namensauswahl – dein Spielstand wird vorher gespeichert.</p>`
+     +`<p>Die Szene ändert sich mit dem Level. Die Bau-Hintergründe wählst du im Baubereich selbst.</p>`
+     +`<p class="settings-note">Namensliste, Maskottchen und Klassencode werden im Lehrerbereich gepflegt. Den erreichst du über die Namensauswahl.</p>`
   }
   $("modalContent").innerHTML=h;$("modal").classList.add("open")
 }
 function showCollection(){
   const labels={
-    wood:["i-wood","Holz"],stone:["i-stone","Stein"],rail:["i-rail","Schiene"],emerald:["i-emerald","Smaragd"],gold:["i-gold","Gold"],pickaxe:["i-pickaxe","Spitzhacke"]
+    wood:["i-wood","Holz"],stone:["i-stone","Stein"],rail:["i-rail","Schiene"],emerald:["i-emerald","Kristall"],gold:["i-gold","Gold"],pickaxe:["i-pickaxe","Spitzhacke"]
   };
-  const materialHtml=Object.entries(state.items).map(([id,n])=>`<div class="item">${svgIcon(labels[id][0],"icon-lg")}<strong>${n}</strong><span>${labels[id][1]}</span></div>`).join("");
+  const materialHtml=Object.entries(state.items)
+    .filter(([id])=>labels[id])
+    .map(([id,n])=>`<div class="item">${svgIcon(labels[id][0],"icon-lg")}<strong>${n}</strong><span>${labels[id][1]}</span></div>`).join("");
   const decoHtml=DECOS.map(d=>{
     const unlocked=state.totalStars>=(d.unlock||0);
     return `<div class="item"><div style="font-size:28px">${d.symbol}</div><strong>${state.decorations[d.id]||0}</strong><span>${d.label}${unlocked?"":" · ab "+d.unlock+" ⭐"}</span></div>`
@@ -4402,11 +5371,400 @@ function showCollection(){
   $("modal").classList.add("open")
 }
 
-/* ---------- INIT ---------- */
-document.addEventListener("DOMContentLoaded",()=>{
-  loadState();
-  updateUI();makeTask();renderBuild();
+/* ===================================================================== */
+/* ==========  MASKOTTCHEN ZEICHNEN  =================================== */
+/* ===================================================================== */
 
+function mascotHTML(){
+  return `<div class="mascot m-${MASCOT.species} c-${MASCOT.color}">`
+       + `<i class="m-extra"></i><i class="m-ear l"></i><i class="m-ear r"></i>`
+       + `<i class="m-body"></i><i class="m-belly"></i><i class="m-head"></i>`
+       + `<i class="m-eye l"></i><i class="m-eye r"></i><i class="m-snout"></i></div>`;
+}
+function renderMascots(){
+  document.title=`Abenteuerwelt – Rechnen mit ${MASCOT.name}`;
+  ["cartMascot","startMascot","mascotPreview","bossMascot"].forEach(id=>{
+    const el=$(id);
+    if(el) el.innerHTML=mascotHTML();
+  });
+}
+
+/* ===================================================================== */
+/* ==========  STARTBILDSCHIRM: WER SPIELT?  =========================== */
+/* ===================================================================== */
+
+let pickedKid=null;
+let pickedDiff="mittel";
+
+function renderKidPicker(){
+  const holder=$("kidPicker");
+  holder.innerHTML="";
+  holder.classList.toggle("many", classConfig.kids.length>16);
+  if(!classConfig.kids.length){
+    const p=document.createElement("p");
+    p.className="screen-note";
+    p.textContent="Noch keine Namen eingetragen. Im Lehrerbereich kannst du die Klassenliste anlegen.";
+    holder.appendChild(p);
+    return;
+  }
+  classConfig.kids.forEach(name=>{
+    const btn=document.createElement("button");
+    btn.type="button";
+    btn.className="kid-card"+(pickedKid===name?" selected":"");
+    btn.setAttribute("aria-pressed", pickedKid===name ? "true" : "false");
+
+    const label=document.createElement("span");
+    label.textContent=name;
+    btn.appendChild(label);
+
+    const sum=profileSummary(name);
+    const sub=document.createElement("span");
+    sub.className="kid-stars";
+    sub.textContent = sum ? `${sum.stars} ★` : "neu";
+    btn.appendChild(sub);
+
+    btn.onclick=()=>{
+      pickedKid=name;
+      const sm=profileSummary(name);
+      if(sm) pickedDiff=sm.difficulty;   // zuletzt gewaehlte Stufe vorschlagen
+      renderKidPicker();
+      renderDiffPicker();
+      const start=$("startBtn");
+      start.disabled=false;
+      start.textContent=`Losfahren mit ${name}!`;
+      Sound.init();
+    };
+    holder.appendChild(btn);
+  });
+}
+
+function renderDiffPicker(){
+  const holder=$("diffPicker");
+  holder.innerHTML="";
+  DIFFS.forEach(d=>{
+    const btn=document.createElement("button");
+    btn.type="button";
+    btn.className="diff-card"+(pickedDiff===d.id?" selected":"");
+    btn.setAttribute("aria-pressed", pickedDiff===d.id ? "true" : "false");
+    btn.innerHTML=`<span class="d-stars">${d.stars}</span>`
+                 +`<span class="d-label">${esc(d.label)}</span>`
+                 +`<span class="d-hint">${esc(d.hint)}</span>`;
+    btn.onclick=()=>{ pickedDiff=d.id; renderDiffPicker(); };
+    holder.appendChild(btn);
+  });
+}
+
+function showStartScreen(){
+  pickedKid=null;
+  $("startBtn").disabled=true;
+  $("startBtn").textContent="Losfahren!";
+  $("startClassName").textContent=classConfig.className;
+  $("startHeadline").textContent=`Wer fährt heute mit ${MASCOT.name}?`;
+  renderMascots();
+  renderKidPicker();
+  renderDiffPicker();
+  $("teacherScreen").hidden=true;
+  $("startScreen").hidden=false;
+}
+
+function startGame(){
+  if(!pickedKid) return;
+  loadStateFor(pickedKid);
+  currentDiff=pickedDiff;
+  save();
+  $("startScreen").hidden=true;
+  renderMascots();
+  updateUI(); makeTask(); renderBuild();
+  feedback(`Los geht's, ${CONFIG.playerName}! ${MASCOT.name} fährt mit.`,"#9cff86");
+}
+
+/* Stufenwechsel mitten im Spiel – die Kinder duerfen das jederzeit. */
+function cycleDifficulty(){
+  const i=DIFFS.findIndex(d=>d.id===currentDiff);
+  currentDiff=DIFFS[(i+1)%DIFFS.length].id;
+  save();
+  updateUI();
+  makeTask();
+  feedback(`Stufe: ${diffInfo().label} – ${diffInfo().hint}`,"#9cff86");
+}
+
+/* ===================================================================== */
+/* ==========  LEHRERBEREICH  ========================================== */
+/* ===================================================================== */
+
+/* Merkt sich, wohin es nach dem Lehrerbereich zurueckgeht. */
+let teacherCameFromStart=true;
+
+function openTeacher(){
+  teacherCameFromStart = !$("startScreen").hidden || !currentKid;
+  $("startScreen").hidden=true;
+  $("teacherScreen").hidden=false;
+  $("pinGate").hidden=false;
+  $("teacherBody").hidden=true;
+  $("pinInput").value="";
+  $("pinMsg").textContent="";
+  $("pinInput").focus();
+}
+function closeTeacher(){
+  savePinChange();
+  saveClassConfig();
+  $("teacherScreen").hidden=true;
+  renderMascots();
+  if(currentKid && !teacherCameFromStart){
+    // Es lief bereits ein Spiel - dorthin zurueck.
+    updateUI();
+    $("startScreen").hidden=true;
+  }else{
+    showStartScreen();
+  }
+}
+function unlockTeacher(){
+  if($("pinInput").value===classConfig.pin){
+    $("pinGate").hidden=true;
+    $("teacherBody").hidden=false;
+    $("classNameInput").value=classConfig.className;
+    $("mascotNameInput").value=MASCOT.name;
+    $("pinChangeInput").value=classConfig.pin;
+    renderKidEditor();
+    renderMascotPickers();
+    renderProgressList();
+    updateShareCode();
+  }else{
+    $("pinMsg").textContent="Der Code stimmt nicht.";
+    $("pinInput").value="";
+    $("pinInput").focus();
+  }
+}
+function savePinChange(){
+  const v=($("pinChangeInput").value||"").trim();
+  if(/^\d{4}$/.test(v)) classConfig.pin=v;
+}
+
+function showTeacherTab(name){
+  document.querySelectorAll(".tabbtn").forEach(b=>{
+    b.classList.toggle("active", b.dataset.tab===name);
+  });
+  document.querySelectorAll(".teacher-tabpanel").forEach(p=>{
+    p.hidden = p.dataset.panel!==name;
+  });
+  if(name==="progress") renderProgressList();
+  if(name==="share") updateShareCode();
+}
+
+/* ---- Kinderliste ---- */
+function renderKidEditor(){
+  const holder=$("kidEditor");
+  holder.innerHTML="";
+  classConfig.kids.forEach((name,i)=>{
+    const row=document.createElement("div");
+    row.className="kid-row";
+
+    const inp=document.createElement("input");
+    inp.type="text"; inp.value=name; inp.maxLength=20;
+    inp.setAttribute("aria-label",`Name ${i+1}`);
+    inp.onchange=()=>{
+      const v=sanitizeName(inp.value);
+      if(!v){ inp.value=name; return; }
+      const clash=classConfig.kids.some((k,j)=>j!==i && nameKey(k)===nameKey(v));
+      if(clash){ $("kidsMsg").textContent=`"${v}" gibt es schon.`; inp.value=name; return; }
+      // Spielstand wandert mit dem neuen Namen mit.
+      const old=readJSON(profileKey(name));
+      if(old){ deleteProfile(name); try{localStorage.setItem(profileKey(v),JSON.stringify(old))}catch(e){} }
+      classConfig.kids[i]=v;
+      saveClassConfig();
+      $("kidsMsg").textContent="Gespeichert.";
+      renderKidEditor();
+    };
+
+    const del=document.createElement("button");
+    del.type="button"; del.className="icon-btn"; del.textContent="✕";
+    del.setAttribute("aria-label",`${name} entfernen`);
+    del.onclick=()=>{
+      if(!confirm(`"${name}" aus der Liste entfernen? Der Spielstand von ${name} wird dabei gelöscht.`)) return;
+      deleteProfile(name);
+      classConfig.kids.splice(i,1);
+      saveClassConfig();
+      $("kidsMsg").textContent=`"${name}" entfernt.`;
+      renderKidEditor();
+    };
+
+    row.appendChild(inp); row.appendChild(del);
+    holder.appendChild(row);
+  });
+}
+function addKid(){
+  const v=sanitizeName($("newKidInput").value);
+  if(!v){ $("kidsMsg").textContent="Bitte einen Namen eingeben."; return; }
+  if(classConfig.kids.some(k=>nameKey(k)===nameKey(v))){
+    $("kidsMsg").textContent=`"${v}" gibt es schon.`; return;
+  }
+  if(classConfig.kids.length>=60){ $("kidsMsg").textContent="Mehr als 60 Namen gehen nicht."; return; }
+  classConfig.kids.push(v);
+  saveClassConfig();
+  $("newKidInput").value="";
+  $("kidsMsg").textContent=`"${v}" hinzugefügt.`;
+  renderKidEditor();
+}
+
+/* ---- Maskottchen ---- */
+function renderMascotPickers(){
+  const sp=$("speciesPicker"); sp.innerHTML="";
+  MASCOT_SPECIES.forEach(x=>{
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="chip"+(MASCOT.species===x.id?" selected":"");
+    b.textContent=x.label;
+    b.onclick=()=>{ MASCOT.species=x.id; saveClassConfig(); renderMascots(); renderMascotPickers(); };
+    sp.appendChild(b);
+  });
+  const cp=$("colorPicker"); cp.innerHTML="";
+  MASCOT_COLORS.forEach(x=>{
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="chip"+(MASCOT.color===x.id?" selected":"");
+    b.innerHTML=`<span class="swatch mascot c-${x.id}" style="background:var(--m-main)"></span>${esc(x.label)}`;
+    b.onclick=()=>{ MASCOT.color=x.id; saveClassConfig(); renderMascots(); renderMascotPickers(); };
+    cp.appendChild(b);
+  });
+}
+
+/* ---- Fortschritt ---- */
+function renderProgressList(){
+  const holder=$("progressList");
+  holder.innerHTML="";
+  if(!classConfig.kids.length){
+    holder.innerHTML='<p class="screen-note">Noch keine Namen in der Liste.</p>';
+    return;
+  }
+  classConfig.kids.forEach(name=>{
+    const sum=profileSummary(name);
+    const row=document.createElement("div");
+    row.className="progress-row";
+
+    const n=document.createElement("span");
+    n.className="p-name"; n.textContent=name;
+    row.appendChild(n);
+
+    const info=document.createElement("span");
+    if(sum){
+      const d=DIFFS.find(x=>x.id===sum.difficulty);
+      info.className="p-info";
+      info.textContent=`${sum.stars} ★ · Level ${sum.level} · ${d?d.label:"Mittel"}`;
+    }else{
+      info.className="p-empty";
+      info.textContent="noch nicht gespielt";
+    }
+    row.appendChild(info);
+
+    if(sum){
+      const del=document.createElement("button");
+      del.type="button"; del.className="icon-btn"; del.textContent="↺";
+      del.setAttribute("aria-label",`Spielstand von ${name} zurücksetzen`);
+      del.onclick=()=>{
+        if(!confirm(`Spielstand von ${name} wirklich zurücksetzen?`)) return;
+        deleteProfile(name);
+        if(currentKid && nameKey(currentKid)===nameKey(name)) currentKid=null;
+        renderProgressList();
+      };
+      row.appendChild(del);
+    }
+    holder.appendChild(row);
+  });
+}
+function resetAllProfiles(){
+  if(!confirm("Wirklich alle Spielstände auf diesem Gerät löschen? Die Namensliste und das Maskottchen bleiben erhalten.")) return;
+  classConfig.kids.forEach(deleteProfile);
+  LEGACY_KEYS.forEach(k=>{ try{ localStorage.removeItem(k); }catch(e){} });
+  currentKid=null;
+  renderProgressList();
+}
+
+/* ---- Klassencode: Einstellungen auf andere Geraete uebertragen ---- */
+function updateShareCode(){
+  const payload={
+    v:1,
+    className:classConfig.className,
+    kids:classConfig.kids,
+    mascot:{name:MASCOT.name,species:MASCOT.species,color:MASCOT.color}
+  };
+  let code="";
+  try{
+    // btoa kann nur Latin-1, darum vorher in UTF-8-Bytes umwandeln.
+    code=btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  }catch(e){ code=""; }
+  $("shareCode").value=code;
+}
+function importShareCode(){
+  const raw=($("importCode").value||"").trim();
+  if(!raw){ $("shareMsg").textContent="Bitte erst einen Code einfügen."; return; }
+  let data=null;
+  try{
+    data=JSON.parse(decodeURIComponent(escape(atob(raw.replace(/\s+/g,"")))));
+  }catch(e){ data=null; }
+  if(!data || typeof data!=="object" || !Array.isArray(data.kids)){
+    $("shareMsg").textContent="Das war kein gültiger Klassencode.";
+    return;
+  }
+  const list=data.kids.map(sanitizeName).filter(Boolean);
+  const seen=new Set(), uniq=[];
+  list.forEach(n=>{const k=nameKey(n); if(!seen.has(k)){seen.add(k);uniq.push(n)}});
+  if(!uniq.length){ $("shareMsg").textContent="In dem Code stehen keine Namen."; return; }
+
+  classConfig.kids=uniq.slice(0,60);
+  if(typeof data.className==="string") classConfig.className=sanitizeName(data.className)||"Meine Klasse";
+  if(data.mascot && typeof data.mascot==="object"){
+    const n=sanitizeName(data.mascot.name);
+    if(n) MASCOT.name=n;
+    if(MASCOT_SPECIES.some(x=>x.id===data.mascot.species)) MASCOT.species=data.mascot.species;
+    if(MASCOT_COLORS.some(x=>x.id===data.mascot.color))   MASCOT.color=data.mascot.color;
+  }
+  saveClassConfig();
+  $("classNameInput").value=classConfig.className;
+  $("mascotNameInput").value=MASCOT.name;
+  $("importCode").value="";
+  $("shareMsg").textContent=`Übernommen: ${uniq.length} Namen. Die Spielstände auf diesem Gerät bleiben unverändert.`;
+  renderKidEditor(); renderMascotPickers(); renderMascots(); renderProgressList();
+}
+
+/* ===================================================================== */
+/* ==========  INIT  =================================================== */
+/* ===================================================================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+  if(!document.body.className) document.body.className="theme-forest";
+  loadClassConfig();
+  renderMascots();
+  showStartScreen();
+  renderBuild();
+
+  /* ---- Startbildschirm ---- */
+  $("startBtn").onclick=startGame;
+  $("teacherOpenBtn").onclick=openTeacher;
+  $("switchKidBtn").onclick=()=>{ save(); currentKid=null; showStartScreen(); };
+  $("diffBtn").onclick=cycleDifficulty;
+
+  /* ---- Lehrerbereich ---- */
+  $("pinBtn").onclick=unlockTeacher;
+  $("pinInput").addEventListener("keydown",e=>{ if(e.key==="Enter") unlockTeacher(); });
+  document.querySelectorAll(".teacher-close").forEach(b=>b.onclick=closeTeacher);
+  document.querySelectorAll(".tabbtn").forEach(b=>b.onclick=()=>showTeacherTab(b.dataset.tab));
+  $("classNameInput").onchange=()=>{
+    classConfig.className=sanitizeName($("classNameInput").value)||"Meine Klasse";
+    $("classNameInput").value=classConfig.className;
+    saveClassConfig();
+  };
+  $("addKidBtn").onclick=addKid;
+  $("newKidInput").addEventListener("keydown",e=>{ if(e.key==="Enter") addKid(); });
+  $("mascotNameInput").onchange=()=>{
+    MASCOT.name=sanitizeName($("mascotNameInput").value)||"Nilo";
+    $("mascotNameInput").value=MASCOT.name;
+    saveClassConfig(); renderMascots();
+  };
+  $("resetAllBtn").onclick=resetAllProfiles;
+  $("copyCodeBtn").onclick=()=>{ $("shareCode").select(); };
+  $("importCodeBtn").onclick=importShareCode;
+
+  /* ---- Spiel ---- */
   $("checkBtn").onclick=checkAnswer;
   $("answer").addEventListener("keydown",e=>{if(e.key==="Enter")checkAnswer()});
   $("continueBtn").onclick=nextLevel;
@@ -4423,7 +5781,14 @@ document.addEventListener("DOMContentLoaded",()=>{
   $("trophyBtn").onclick=showCollection;
   $("soundBtn").onclick=()=>Sound.toggle();
   $("modalClose").onclick=()=>$("modal").classList.remove("open");
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape") $("modal").classList.remove("open");
+  });
   $("modal").onclick=e=>{if(e.target===$("modal"))$("modal").classList.remove("open")};
+  $("modalContent").addEventListener("click",e=>{
+    const b=e.target.closest(".map-level");
+    if(b) jumpToLevel(Number(b.dataset.level));
+  });
   document.querySelectorAll(".sidebtn").forEach(b=>b.onclick=()=>openPanel(b.dataset.panel));
   document.querySelectorAll(".build-btn[data-piece]").forEach(b=>b.onclick=()=>{
     deleteMode=false;clearArmed=false;if(clearTimer)clearTimeout(clearTimer);
