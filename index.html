@@ -3008,6 +3008,26 @@ button{cursor:pointer}
 }
 .bulk-box .screen-note{margin:8px 0 10px}
 
+/* Rueckfrage-Fenster: liegt ueber allem, auch ueber dem Lehrerbereich */
+.confirm-overlay{
+  position:fixed;inset:0;z-index:200;display:flex;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(0,0,0,.7);overflow-y:auto;
+}
+.confirm-overlay[hidden]{display:none!important}
+.confirm-card{
+  max-width:420px;width:100%;margin:auto;padding:22px 20px 18px;
+  background:#1e2a22;border:5px solid #5b7a63;border-radius:22px;
+  box-shadow:0 14px 0 rgba(0,0,0,.3);
+}
+.confirm-text{
+  margin:0 0 18px;color:#fff3d0;font-size:16px;line-height:1.45;
+  white-space:pre-line;   /* damit Absaetze im Text sichtbar bleiben */
+}
+.confirm-actions{display:flex;gap:10px;flex-wrap:wrap}
+.confirm-actions .confirm-cancel{flex:1 1 120px;min-height:50px;font-size:16px}
+.confirm-actions .confirm-ok{flex:1 1 150px;width:auto;min-height:50px}
+
 </style>
 </head>
 
@@ -3215,6 +3235,19 @@ button{cursor:pointer}
         </label>
         <button class="linkbtn teacher-close" type="button">Speichern und zurück zum Spiel</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= RUECKFRAGE ================= -->
+<!-- Eigenes Fenster statt confirm(): Browser unterdruecken die eingebaute
+     Rueckfrage, sobald die Seite in einem abgesicherten Rahmen laeuft. -->
+<div id="confirmBox" class="confirm-overlay" hidden>
+  <div class="confirm-card" role="alertdialog" aria-modal="true" aria-labelledby="confirmText">
+    <p id="confirmText" class="confirm-text"></p>
+    <div class="confirm-actions">
+      <button id="confirmNo" class="chip confirm-cancel" type="button">Abbrechen</button>
+      <button id="confirmYes" class="danger-btn confirm-ok" type="button">Ja</button>
     </div>
   </div>
 </div>
@@ -5319,6 +5352,28 @@ async function ride(){
   buildStatus("Tunnel geschafft! Die Lore steht wieder am Start.");
 }
 
+/* ---------- RUECKFRAGE ---------- */
+
+/* Eigenes Rueckfrage-Fenster. Die eingebaute Funktion confirm() wird von
+   Browsern stillschweigend uebergangen, sobald die Seite in einem
+   abgesicherten Rahmen laeuft (z.B. eingebettet in eine andere Seite).
+   Dann waere jede Rueckfrage automatisch mit "Nein" beantwortet worden. */
+let confirmAction=null;
+
+function askConfirm(text, jaLabel, onYes){
+  $("confirmText").textContent=text;      // textContent: nie HTML aus Namen
+  $("confirmYes").textContent=jaLabel;
+  confirmAction=onYes;
+  $("confirmBox").hidden=false;
+  $("confirmYes").focus();
+}
+function closeConfirm(ausfuehren){
+  $("confirmBox").hidden=true;
+  const aktion=confirmAction;
+  confirmAction=null;
+  if(ausfuehren && aktion) aktion();
+}
+
 /* ---------- PANELS ---------- */
 
 /* Macht Text sicher fuer die Anzeige. Namen kommen aus der Klassenliste –
@@ -5610,12 +5665,19 @@ function renderKidEditor(){
     del.type="button"; del.className="icon-btn"; del.textContent="✕";
     del.setAttribute("aria-label",`${name} entfernen`);
     del.onclick=()=>{
-      if(!confirm(`"${name}" aus der Liste entfernen? Der Spielstand von ${name} wird dabei gelöscht.`)) return;
-      deleteProfile(name);
-      classConfig.kids.splice(i,1);
-      saveClassConfig();
-      $("kidsMsg").textContent=`"${name}" entfernt.`;
-      renderKidEditor();
+      const hatStand=!!profileSummary(name);
+      askConfirm(
+        `"${name}" aus der Liste entfernen?` + (hatStand ? `\n\nDer Spielstand von ${name} auf diesem Gerät wird dabei gelöscht.` : ""),
+        "Ja, entfernen",
+        ()=>{
+          deleteProfile(name);
+          classConfig.kids.splice(i,1);
+          saveClassConfig();
+          updateShareCode();
+          $("kidsMsg").textContent=`"${name}" entfernt.`;
+          renderKidEditor();
+        }
+      );
     };
 
     row.appendChild(inp); row.appendChild(del);
@@ -5657,15 +5719,15 @@ function clearAllKids(){
   const warnung=mitStand
     ? `\n\nAchtung: ${mitStand} ${mitStand===1?"Kind hat":"Kinder haben"} auf diesem Gerät einen Spielstand. Der wird dabei mit gelöscht.`
     : "";
-  if(!confirm(`Alle ${anzahl} Namen aus der Liste entfernen?${warnung}`)) return;
-
-  classConfig.kids.forEach(deleteProfile);
-  classConfig.kids=[];
-  currentKid=null;
-  saveClassConfig();
-  renderKidEditor();
-  updateShareCode();
-  $("kidsMsg").textContent="Die Namensliste ist jetzt leer.";
+  askConfirm(`Alle ${anzahl} Namen aus der Liste entfernen?${warnung}`, "Ja, alle löschen", ()=>{
+    classConfig.kids.forEach(deleteProfile);
+    classConfig.kids=[];
+    currentKid=null;
+    saveClassConfig();
+    renderKidEditor();
+    updateShareCode();
+    $("kidsMsg").textContent="Die Namensliste ist jetzt leer.";
+  });
 }
 
 function addKid(){
@@ -5737,10 +5799,13 @@ function renderProgressList(){
       del.type="button"; del.className="icon-btn"; del.textContent="↺";
       del.setAttribute("aria-label",`Spielstand von ${name} zurücksetzen`);
       del.onclick=()=>{
-        if(!confirm(`Spielstand von ${name} wirklich zurücksetzen?`)) return;
-        deleteProfile(name);
-        if(currentKid && nameKey(currentKid)===nameKey(name)) currentKid=null;
-        renderProgressList();
+        askConfirm(`Spielstand von ${name} wirklich zurücksetzen?\n\n${name} fängt danach wieder bei Level 1 an. Der Name bleibt in der Liste.`,
+          "Ja, zurücksetzen",
+          ()=>{
+            deleteProfile(name);
+            if(currentKid && nameKey(currentKid)===nameKey(name)) currentKid=null;
+            renderProgressList();
+          });
       };
       row.appendChild(del);
     }
@@ -5748,11 +5813,14 @@ function renderProgressList(){
   });
 }
 function resetAllProfiles(){
-  if(!confirm("Wirklich alle Spielstände auf diesem Gerät löschen? Die Namensliste und das Maskottchen bleiben erhalten.")) return;
-  classConfig.kids.forEach(deleteProfile);
-  LEGACY_KEYS.forEach(k=>{ try{ localStorage.removeItem(k); }catch(e){} });
-  currentKid=null;
-  renderProgressList();
+  askConfirm("Wirklich alle Spielstände auf diesem Gerät löschen?\n\nDie Namensliste und das Maskottchen bleiben erhalten – nur der Fortschritt der Kinder wird zurückgesetzt.",
+    "Ja, alle zurücksetzen",
+    ()=>{
+      classConfig.kids.forEach(deleteProfile);
+      LEGACY_KEYS.forEach(k=>{ try{ localStorage.removeItem(k); }catch(e){} });
+      currentKid=null;
+      renderProgressList();
+    });
 }
 
 /* ---- Klassencode: Einstellungen auf andere Geraete uebertragen ---- */
@@ -5832,6 +5900,9 @@ document.addEventListener("DOMContentLoaded",()=>{
   $("addKidBtn").onclick=addKid;
   $("bulkKidsBtn").onclick=addKidsBulk;
   $("clearKidsBtn").onclick=clearAllKids;
+  $("confirmYes").onclick=()=>closeConfirm(true);
+  $("confirmNo").onclick=()=>closeConfirm(false);
+  $("confirmBox").onclick=e=>{ if(e.target===$("confirmBox")) closeConfirm(false); };
   $("newKidInput").addEventListener("keydown",e=>{ if(e.key==="Enter") addKid(); });
   $("mascotNameInput").onchange=()=>{
     MASCOT.name=sanitizeName($("mascotNameInput").value)||"Nilo";
@@ -5860,7 +5931,9 @@ document.addEventListener("DOMContentLoaded",()=>{
   $("soundBtn").onclick=()=>Sound.toggle();
   $("modalClose").onclick=()=>$("modal").classList.remove("open");
   document.addEventListener("keydown",e=>{
-    if(e.key==="Escape") $("modal").classList.remove("open");
+    if(e.key!=="Escape") return;
+    if(!$("confirmBox").hidden){ closeConfirm(false); return; }
+    $("modal").classList.remove("open");
   });
   $("modal").onclick=e=>{if(e.target===$("modal"))$("modal").classList.remove("open")};
   $("modalContent").addEventListener("click",e=>{
