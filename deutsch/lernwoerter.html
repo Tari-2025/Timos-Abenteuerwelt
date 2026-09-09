@@ -1,0 +1,513 @@
+<title>Nilos Lernwörter</title>
+<style>
+/* ---------------------------------------------------------------
+   NILOS LERNWÖRTER – Prototyp
+   Bewusst dieselbe Bildsprache wie das Rechenspiel: dunkler Grund,
+   cremefarbene Schrift, runde Formen, Nilo als Begleiter.
+   Alle Farben sind fest gesetzt, damit die Seite überall gleich
+   aussieht. Keine externen Dateien, kein Internet.
+   --------------------------------------------------------------- */
+*{box-sizing:border-box}
+html,body{
+  margin:0;min-height:100%;
+  font-family:"Segoe UI Rounded","SF Pro Rounded","Trebuchet MS",Verdana,Tahoma,system-ui,sans-serif;
+  font-weight:800;
+  background:linear-gradient(170deg,#3f7f5c,#25523d 55%,#1b3b2c);
+  color:#fff3d0;
+}
+body{padding:18px 14px 40px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.wrap{max-width:620px;margin:0 auto}
+
+/* ---------- Kopf ---------- */
+.kopf{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(20,30,24,.9);border:5px solid #5b7a63;border-radius:24px;
+  padding:14px 18px;box-shadow:0 10px 0 rgba(0,0,0,.25);
+}
+.kopf h1{margin:0;font-size:23px;line-height:1.15;color:#fff3d0}
+.kopf p{margin:3px 0 0;font-size:14px;font-weight:700;color:#a9c6b3}
+.kopf .sterne{margin-left:auto;text-align:center;flex:none}
+.kopf .sterne b{display:block;font-size:26px;color:#ffd45e;line-height:1}
+.kopf .sterne span{font-size:11px;font-weight:700;color:#a9c6b3}
+
+/* ---------- Übungsauswahl ---------- */
+.uebungen{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.uebungen button{
+  flex:1 1 128px;min-height:52px;padding:8px 10px;
+  background:#333e35;color:#c9d8cd;border:3px solid #26302a;border-radius:16px;
+  font-size:14px;line-height:1.25;
+}
+.uebungen button small{display:block;font-size:11px;font-weight:700;opacity:.8}
+.uebungen button:hover{filter:brightness(1.13)}
+.uebungen button.aktiv{background:#79dc4c;color:#0f2410;border-color:#225f16}
+
+/* ---------- Aufgabenkarte ---------- */
+.karte{
+  background:rgba(20,30,24,.9);border:5px solid #5b7a63;border-radius:24px;
+  padding:22px 18px 24px;text-align:center;box-shadow:0 10px 0 rgba(0,0,0,.25);
+  min-height:330px;display:flex;flex-direction:column;justify-content:center;
+}
+.anweisung{margin:0 0 16px;font-size:15px;font-weight:700;color:#a9c6b3}
+.artikel{font-size:20px;color:#9fd8ef;margin-bottom:4px}
+
+/* Blitzlesen */
+.blitzwort{
+  font-size:clamp(34px,10vw,52px);letter-spacing:2px;color:#ffd45e;
+  text-shadow:0 4px 0 rgba(0,0,0,.35);margin:6px 0 4px;word-break:break-word;
+}
+.countdown{font-size:15px;color:#a9c6b3;font-weight:700;min-height:22px}
+.balken{height:10px;border-radius:6px;background:#2b3a30;overflow:hidden;margin:14px auto 0;max-width:260px}
+.balken i{display:block;height:100%;background:linear-gradient(90deg,#ffd45e,#79dc4c);width:100%}
+
+/* Lückenwort */
+.luecken{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0 18px}
+.luecken .fest,.luecken .loch{
+  min-width:38px;height:56px;display:grid;place-items:center;
+  font-size:30px;border-radius:12px;
+}
+.luecken .fest{color:#fff3d0;padding:0 4px}
+.luecken .loch{
+  background:#101a13;border:4px dashed #6f8f78;color:#ffd45e;padding:0 4px;
+}
+.luecken .loch.voll{border-style:solid;border-color:#79dc4c;background:#1c2f1f}
+.buchstaben{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.buchstaben button{
+  width:54px;height:54px;font-size:26px;border-radius:14px;
+  background:linear-gradient(#4d5c4e,#333e35);color:#fff3d0;border:4px solid #26302a;
+}
+.buchstaben button:hover{filter:brightness(1.15)}
+.buchstaben button:disabled{opacity:.28;cursor:default}
+
+/* Auswahl */
+.auswahl{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.auswahl button{
+  min-height:60px;font-size:26px;letter-spacing:1px;
+  background:linear-gradient(#4d5c4e,#333e35);color:#fff3d0;
+  border:4px solid #26302a;border-radius:18px;
+}
+.auswahl button:hover{filter:brightness(1.15)}
+.auswahl button.richtig{background:linear-gradient(#79dc4c,#3e9b28);color:#0f2410;border-color:#225f16}
+.auswahl button.falsch{background:linear-gradient(#c96b60,#8f3f36);color:#fff0ed;border-color:#7d332b}
+
+/* Eingabe */
+.eingabe{
+  width:min(320px,100%);margin:0 auto;padding:14px;font-size:28px;text-align:center;
+  border-radius:18px;border:5px solid #5b7a63;background:#101a13;color:#fff3d0;
+  font-family:inherit;font-weight:800;
+}
+.eingabe:focus{outline:3px solid #ffd45e;outline-offset:2px}
+
+.primaer{
+  margin-top:16px;min-height:58px;padding:0 30px;font-size:19px;
+  background:linear-gradient(#79dc4c,#3e9b28);color:#0f2410;
+  border:5px solid #225f16;border-radius:18px;box-shadow:0 5px 0 #153f0f;
+}
+.primaer:active{transform:translateY(3px);box-shadow:0 2px 0 #153f0f}
+.primaer:disabled{opacity:.45;filter:grayscale(.5);cursor:default}
+
+.rueckmeldung{
+  margin-top:16px;min-height:52px;font-size:16px;line-height:1.4;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.rueckmeldung.gut{color:#9cff86}
+.rueckmeldung.fast{color:#ffd08a}
+.rueckmeldung.daneben{color:#ffaaa2}
+
+.fusszeile{
+  margin-top:18px;padding:14px 16px;font-size:13px;font-weight:700;line-height:1.5;
+  color:#a9c6b3;background:rgba(20,30,24,.7);border:3px solid #3d4a3f;border-radius:18px;
+}
+.fusszeile b{color:#fff3d0}
+
+/* ---------- Nilo ---------- */
+.nilo-zeile{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:6px}
+.mascot{position:relative;width:var(--m-size,68px);height:var(--m-size,68px);
+  --m-main:#b49be0;--m-dark:#6f56a5;--m-light:#d8c8f2;--m-belly:#f7f0ff}
+.mascot i{position:absolute;display:block}
+.mascot .m-body{left:14%;top:40%;width:72%;height:56%;background:var(--m-main);
+  border:4px solid var(--m-dark);border-radius:48% 48% 42% 42%}
+.mascot .m-belly{left:30%;top:56%;width:40%;height:34%;background:var(--m-belly);
+  border-radius:50%;opacity:.85}
+.mascot .m-head{left:12%;top:6%;width:76%;height:52%;background:var(--m-main);
+  border:4px solid var(--m-dark);border-radius:46%}
+.mascot .m-ear{top:2%;width:16%;height:16%;background:var(--m-main);
+  border:4px solid var(--m-dark);border-radius:50%}
+.mascot .m-ear.l{left:12%}
+.mascot .m-ear.r{right:12%}
+.mascot .m-eye{top:26%;width:15%;height:16%;background:#fffdf7;
+  border:3px solid var(--m-dark);border-radius:50%}
+.mascot .m-eye.l{left:24%}
+.mascot .m-eye.r{right:24%}
+.mascot .m-eye::after{content:"";position:absolute;left:22%;top:26%;width:52%;height:48%;
+  background:#2b2536;border-radius:50%}
+.mascot .m-snout{left:26%;top:38%;width:48%;height:22%;background:var(--m-light);
+  border:3px solid var(--m-dark);border-radius:40%}
+.mascot .m-snout::before,.mascot .m-snout::after{content:"";position:absolute;top:26%;
+  width:15%;height:26%;background:var(--m-dark);border-radius:50%}
+.mascot .m-snout::before{left:24%}
+.mascot .m-snout::after{right:24%}
+.mascot.jubel{animation:jubel .7s ease}
+@keyframes jubel{
+  0%{transform:translateY(0) rotate(0)}
+  30%{transform:translateY(-16px) rotate(-8deg)}
+  55%{transform:translateY(0)}
+  78%{transform:translateY(-7px) rotate(5deg)}
+  100%{transform:translateY(0)}
+}
+.mascot.schade{animation:schade .5s ease}
+@keyframes schade{0%,100%{transform:rotate(0)}30%{transform:rotate(-7deg)}65%{transform:rotate(5deg)}}
+
+@media (prefers-reduced-motion: reduce){
+  .mascot{animation:none!important}
+  .balken i{transition:none!important}
+}
+@media (max-width:420px){
+  .kopf h1{font-size:20px}
+  .buchstaben button{width:48px;height:48px;font-size:23px}
+}
+
+/* --- Ergänzungen für die fertige Fassung --- */
+.kopf .sterne b{font-size:24px}
+.paketwahl{display:flex;align-items:center;gap:10px;margin:14px 0 4px;flex-wrap:wrap}
+.paketwahl label{font-size:14px;font-weight:700;color:#a9c6b3;flex:none}
+.paketwahl select{
+  flex:1 1 200px;min-height:50px;padding:10px 12px;font-family:inherit;font-weight:800;
+  font-size:16px;border-radius:16px;border:4px solid #5b7a63;background:#101a13;color:#fff3d0;
+}
+.fortschritt{
+  display:flex;align-items:center;gap:10px;margin:10px 0 14px;
+  font-size:13px;font-weight:700;color:#a9c6b3;
+}
+.fortschritt .spur{flex:1;height:9px;border-radius:6px;background:#2b3a30;overflow:hidden}
+.fortschritt .spur i{display:block;height:100%;background:linear-gradient(90deg,#79dc4c,#ffd45e);
+  width:0;transition:width .35s ease}
+.artikelwahl{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.artikelwahl button{
+  min-width:104px;min-height:64px;font-size:24px;border-radius:18px;
+  background:linear-gradient(#4d5c4e,#333e35);color:#fff3d0;border:4px solid #26302a;
+}
+.artikelwahl button:hover{filter:brightness(1.15)}
+.artikelwahl button.richtig{background:linear-gradient(#79dc4c,#3e9b28);color:#0f2410;border-color:#225f16}
+.artikelwahl button.falsch{background:linear-gradient(#c96b60,#8f3f36);color:#fff0ed;border-color:#7d332b}
+.grosswort{font-size:clamp(30px,9vw,46px);color:#fff3d0;margin:4px 0 10px;word-break:break-word}
+.fertig h2{margin:0 0 8px;font-size:26px;color:#ffd45e}
+.fertig p{margin:0 0 6px;font-size:16px;font-weight:700;color:#a9c6b3}
+.leerhinweis{font-size:15px;font-weight:700;color:#a9c6b3;line-height:1.5}
+@media (prefers-reduced-motion: reduce){ .fortschritt .spur i{transition:none} }
+</style>
+
+<div class="wrap">
+
+  <header class="kopf">
+    <div class="mascot" id="nilo" aria-hidden="true">
+      <i class="m-ear l"></i><i class="m-ear r"></i>
+      <i class="m-body"></i><i class="m-belly"></i><i class="m-head"></i>
+      <i class="m-eye l"></i><i class="m-eye r"></i><i class="m-snout"></i>
+    </div>
+    <div>
+      <h1>Nilos Lernwörter</h1>
+      <p id="paketname">Lernwörter 1</p>
+    </div>
+    <div class="sterne"><b id="sterne">0</b><span>Sterne</span></div>
+  </header>
+
+  <div class="paketwahl">
+    <label for="paket">Wortpaket</label>
+    <select id="paket"></select>
+  </div>
+
+  <nav class="uebungen" id="uebungen" aria-label="Übung auswählen"></nav>
+
+  <div class="fortschritt">
+    <span id="zaehler">Wort 1 von 13</span>
+    <span class="spur"><i id="spur"></i></span>
+  </div>
+
+  <main class="karte" id="karte"></main>
+
+  <p class="fusszeile">
+    <b>Für die Lehrerin:</b> Alle Übungen entstehen automatisch aus der Wortliste –
+    hier die zwölf Lernwörtertrainings des zweiten Schuljahres und die
+    Häufigkeitswörter des Grundwortschatzes NRW. Stolperstellen und falsche
+    Schreibweisen sind je Wort vorbereitet; für neue Listen muss nichts weiter
+    getippt werden als die Wörter selbst.
+  </p>
+
+</div>
+
+<script>
+/* ===================================================================
+   WORTPAKETE  (aus der Liste der Lehrerin erzeugt)
+     a – Artikel, falls es ein Nomen ist
+     w – das Wort
+     l – verdeckte Buchstaben beim Lückenwort (die Stolperstelle)
+     f – glaubwürdige Fehlschreibungen, falls es welche gibt
+   =================================================================== */
+const PAKETE=[{"id":"lw1","name":"Lernwörter 1","woerter":[{"a":"die","w":"Dose","l":[1,2],"f":["Dohse","Dosse"]},{"a":"die","w":"Hose","l":[1,2],"f":["Hohse","Hosse"]},{"a":"die","w":"Mama","l":[1,2],"f":["Mamma"]},{"a":"der","w":"Hase","l":[1,2],"f":["Hahse","Hasse"]},{"a":"die","w":"Oma","l":[],"f":["Omma"]},{"a":"","w":"bleiben","l":[2,3],"f":["bleibben"]},{"a":"","w":"blühen","l":[2,3],"f":["blüen","bluhen"]},{"a":"der","w":"Pinsel","l":[2,3]},{"a":"der","w":"Name","l":[1,2],"f":["Nahme","Namme"]},{"a":"die","w":"Schere","l":[0,1,2],"f":["Schehre","Scherre"]},{"a":"die","w":"Tasche","l":[2,3,4]},{"a":"der","w":"Papa","l":[1,2],"f":["Pappa"]},{"a":"das","w":"Paket","l":[1,2],"f":["Pakket"]}]},{"id":"lw2","name":"Lernwörter 2","woerter":[{"a":"die","w":"Ampel","l":[1,2]},{"a":"das","w":"Auge","l":[0,1],"f":["Augge"]},{"a":"der","w":"August","l":[0,1],"f":["Auggust"]},{"a":"die","w":"Blüte","l":[2],"f":["Blühte","Blütte"]},{"a":"die","w":"Hose","l":[1,2],"f":["Hohse","Hosse"]},{"a":"die","w":"Brücke","l":[3,4],"f":["Brüke","Brükke"]},{"a":"","w":"zuerst","l":[2,3]},{"a":"die","w":"Seife","l":[1,2],"f":["Seiffe"]},{"a":"der","w":"Euro","l":[0,1],"f":["Oiro","Eurro"]},{"a":"die","w":"Freude","l":[2,3],"f":["Froide","Freudde"]},{"a":"","w":"heute","l":[1,2],"f":["hoite","heutte"]},{"a":"der","w":"Eimer","l":[0,1],"f":["Eimmer"]},{"a":"","w":"warum","l":[1,2],"f":["warrum"]}]},{"id":"lw3","name":"Lernwörter 3","woerter":[{"a":"das","w":"Papier","l":[3,4],"f":["Papir","Pappier"]},{"a":"die","w":"Ziege","l":[1,2],"f":["Zige","Ziegge"]},{"a":"","w":"heißen","l":[3],"f":["heissen","heisen"]},{"a":"der","w":"Fuß","l":[],"f":["Fuss","Fus"]},{"a":"","w":"süß","l":[],"f":["süss","süs"]},{"a":"die","w":"Klasse","l":[3,4],"f":["Klase"]},{"a":"die","w":"Butter","l":[2,3],"f":["Buter"]},{"a":"","w":"schnell","l":[5,6],"f":["schnel"]},{"a":"das","w":"Wetter","l":[2,3],"f":["Weter"]},{"a":"die","w":"Treppe","l":[3,4],"f":["Trepe"]},{"a":"","w":"rennen","l":[2,3],"f":["renen"]},{"a":"","w":"backen","l":[2,3],"f":["baken","bakken"]},{"a":"der","w":"Blitz","l":[3,4],"f":["Bliz"]}]},{"id":"lw4","name":"Lernwörter 4","woerter":[{"a":"die","w":"Biene","l":[1,2],"f":["Bine","Bienne"]},{"a":"","w":"sieben","l":[1,2],"f":["siben","siebben"]},{"a":"der","w":"Spaß","l":[3],"f":["Spass","Spas"]},{"a":"der","w":"Füller","l":[2,3],"f":["Füler","Fuller"]},{"a":"","w":"wollen","l":[2,3],"f":["wolen"]},{"a":"der","w":"Blitz","l":[3,4],"f":["Bliz"]},{"a":"","w":"Ecke","l":[1,2],"f":["Eke","Ekke"]},{"a":"","w":"singen","l":[2,3]},{"a":"die","w":"Dose","l":[1,2],"f":["Dohse","Dosse"]},{"a":"","w":"bleiben","l":[2,3],"f":["bleibben"]},{"a":"","w":"stellen","l":[3,4],"f":["stelen"]},{"a":"der","w":"Schlüssel","l":[5,6],"f":["Schlüsel","Schlussel"]},{"a":"","w":"schmecken","l":[5,6],"f":["schmeken","schmekken"]}]},{"id":"lw5","name":"Lernwörter 5","woerter":[{"a":"das","w":"Bett","l":[2,3],"f":["Bet"]},{"a":"die","w":"Nuss","l":[2,3],"f":["Nus"]},{"a":"die","w":"Familie","l":[5,6],"f":["Famili","Fammilie"]},{"a":"das","w":"Jahr","l":[1,2],"f":["Jar"]},{"a":"","w":"in","l":[]},{"a":"der","w":"Chef","l":[1,2]},{"a":"das","w":"Fest","l":[1,2]},{"a":"","w":"können","l":[2,3],"f":["könen","konnen"]},{"a":"","w":"schenken","l":[0,1,2]},{"a":"","w":"wünschen","l":[3,4,5],"f":["wunschen"]},{"a":"der","w":"Flügel","l":[2],"f":["Flüggel","Flugel"]},{"a":"der","w":"Kalender","l":[3,4],"f":["Kallender"]},{"a":"","w":"wann","l":[2,3],"f":["wan"]}]},{"id":"lw6","name":"Lernwörter 6","woerter":[{"a":"die","w":"Aufgabe","l":[0,1],"f":["Aufgabbe"]},{"a":"das","w":"Bein","l":[1,2]},{"a":"der","w":"Chor","l":[1,2]},{"a":"die","w":"Ferien","l":[3,4],"f":["Ferin","Ferrien"]},{"a":"","w":"heute","l":[1,2],"f":["hoite","heutte"]},{"a":"","w":"zwölf","l":[2],"f":["zwolf"]},{"a":"","w":"nie","l":[],"f":["ni"]},{"a":"das","w":"Geld","l":[3],"f":["Gelt"]},{"a":"","w":"toll","l":[2,3],"f":["tol"]},{"a":"","w":"stehen","l":[2,3],"f":["steen"]},{"a":"die","w":"Zahl","l":[1,2],"f":["Zal"]},{"a":"der","w":"Himmel","l":[2,3],"f":["Himel"]},{"a":"","w":"passen","l":[2,3],"f":["pasen"]}]},{"id":"lw7","name":"Lernwörter 7","woerter":[{"a":"der","w":"Abend","l":[4],"f":["Abent","Abbend"]},{"a":"das","w":"Kind","l":[3],"f":["Kint"]},{"a":"","w":"sie","l":[],"f":["si"]},{"a":"","w":"plötzlich","l":[3,4],"f":["plözlich","plotzlich"]},{"a":"der","w":"Donnerstag","l":[2,3],"f":["Donerstag","Donnerstak"]},{"a":"","w":"singen","l":[2,3]},{"a":"der","w":"Freund","l":[2,3],"f":["Freunt","Froind"]},{"a":"","w":"fragen","l":[2,3],"f":["frahgen","fraggen"]},{"a":"","w":"für","l":[],"f":["fur"]},{"a":"der","w":"Februar","l":[2,3]},{"a":"","w":"haben","l":[1,2],"f":["hahben","habben"]},{"a":"der","w":"Tag","l":[],"f":["Tak"]},{"a":"","w":"alt","l":[]}]},{"id":"lw8","name":"Lernwörter 8","woerter":[{"a":"","w":"geben","l":[1,2],"f":["gehben","gebben"]},{"a":"der","w":"Montag","l":[5],"f":["Montak"]},{"a":"","w":"pflegen","l":[0,1],"f":["pflehgen","pfleggen"]},{"a":"der","w":"König","l":[1],"f":["Könich","Könnig"]},{"a":"","w":"doch","l":[1,2]},{"a":"","w":"liegen","l":[1,2],"f":["ligen","lieggen"]},{"a":"das","w":"Licht","l":[1,2]},{"a":"","w":"schön","l":[0,1,2]},{"a":"","w":"wohnen","l":[1,2],"f":["wonen"]},{"a":"","w":"üben","l":[0],"f":["ühben","übben"]},{"a":"der","w":"Sonntag","l":[2,3],"f":["Sontag","Sonntak"]},{"a":"","w":"sagen","l":[1,2],"f":["sahgen","saggen"]},{"a":"","w":"fallen","l":[2,3],"f":["falen"]}]},{"id":"lw9","name":"Lernwörter 9","woerter":[{"a":"","w":"stark","l":[1,2]},{"a":"der","w":"Samstag","l":[6],"f":["Samstak"]},{"a":"","w":"lieb","l":[1,2],"f":["lib","liep"]},{"a":"","w":"wichtig","l":[5,6],"f":["wichtich"]},{"a":"","w":"fremd","l":[4],"f":["fremt"]},{"a":"","w":"über","l":[0],"f":["übber","uber"]},{"a":"","w":"zeigen","l":[1,2],"f":["zeiggen"]},{"a":"der","w":"Wind","l":[3],"f":["Wint"]},{"a":"","w":"im","l":[]},{"a":"","w":"schlagen","l":[0,1,2],"f":["schlahgen","schlaggen"]},{"a":"der","w":"Weg","l":[],"f":["Wek"]},{"a":"","w":"gesund","l":[5],"f":["gesunt","gessund"]},{"a":"","w":"krank","l":[1,2]}]},{"id":"lw10","name":"Lernwörter 10","woerter":[{"a":"","w":"reisen","l":[1,2],"f":["reissen"]},{"a":"","w":"lernen","l":[2,3]},{"a":"die","w":"Erdbeere","l":[3,4],"f":["Erdbeerre"]},{"a":"","w":"kommen","l":[2,3],"f":["komen"]},{"a":"","w":"versprechen","l":[4,5],"f":["fersprechen"]},{"a":"der","w":"Geburtstag","l":[9],"f":["Geburtstak","Gebburtstag"]},{"a":"","w":"versuchen","l":[3,4],"f":["fersuchen"]},{"a":"","w":"finden","l":[2,3]},{"a":"der","w":"Verkäufer","l":[4,5],"f":["Verkeufer","Verkäuffer"]},{"a":"","w":"rollen","l":[2,3],"f":["rolen"]},{"a":"","w":"bitten","l":[2,3],"f":["biten"]},{"a":"","w":"gehen","l":[1,2],"f":["geen"]},{"a":"","w":"schlafen","l":[0,1,2],"f":["schlahfen","schlaffen"]}]},{"id":"lw11","name":"Lernwörter 11","woerter":[{"a":"","w":"am","l":[]},{"a":"","w":"wieder","l":[1,2],"f":["wiedder"]},{"a":"die","w":"Wolke","l":[1,2]},{"a":"","w":"hart","l":[1,2]},{"a":"","w":"nicht","l":[1,2]},{"a":"","w":"vor","l":[],"f":["for"]},{"a":"","w":"als","l":[]},{"a":"der","w":"Frühling","l":[2,3],"f":["Früling","Frühlink"]},{"a":"","w":"deiner","l":[1,2],"f":["deinner"]},{"a":"","w":"zehn","l":[1,2],"f":["zen"]},{"a":"","w":"hier","l":[1,2],"f":["hir"]},{"a":"das","w":"Wetter","l":[2,3],"f":["Weter"]},{"a":"","w":"lang","l":[3],"f":["lank"]}]},{"id":"lw12","name":"Lernwörter 12","woerter":[{"a":"","w":"sprechen","l":[3,4]},{"a":"der","w":"Elefant","l":[2,3],"f":["Ellefant"]},{"a":"","w":"fünf","l":[1],"f":["funf"]},{"a":"der","w":"Füller","l":[2,3],"f":["Füler","Fuller"]},{"a":"","w":"zuerst","l":[2,3]},{"a":"","w":"machen","l":[2,3]},{"a":"","w":"schnell","l":[5,6],"f":["schnel"]},{"a":"der","w":"Mai","l":[]},{"a":"","w":"bleiben","l":[2,3],"f":["bleibben"]},{"a":"","w":"wie","l":[],"f":["wi"]},{"a":"","w":"heiß","l":[3],"f":["heiss","heis"]},{"a":"","w":"mein","l":[1,2]},{"a":"der","w":"Zahn","l":[1,2],"f":["Zan"]}]},{"id":"hw1","name":"Häufigkeitswörter 1","woerter":[{"a":"","w":"ab","l":[],"f":["ap"]},{"a":"","w":"aber","l":[1,2],"f":["abber"]},{"a":"","w":"als","l":[]},{"a":"","w":"also","l":[1,2]},{"a":"","w":"am","l":[]},{"a":"","w":"an","l":[]},{"a":"","w":"auch","l":[0,1]},{"a":"","w":"auf","l":[]},{"a":"","w":"aus","l":[]},{"a":"","w":"bald","l":[3],"f":["balt"]},{"a":"","w":"bei","l":[]},{"a":"","w":"bin","l":[]},{"a":"","w":"bis","l":[]},{"a":"","w":"bisschen","l":[2,3],"f":["bischen"]},{"a":"","w":"da","l":[]},{"a":"","w":"danach","l":[2,3],"f":["dannach"]},{"a":"","w":"dann","l":[2,3],"f":["dan"]},{"a":"","w":"das","l":[]},{"a":"","w":"dein","l":[1,2]},{"a":"","w":"denn","l":[2,3]},{"a":"","w":"der","l":[]},{"a":"","w":"dich","l":[1,2]},{"a":"","w":"die","l":[],"f":["di"]},{"a":"","w":"dies","l":[1,2],"f":["dis"]},{"a":"","w":"dir","l":[]},{"a":"","w":"doch","l":[1,2]},{"a":"","w":"dort","l":[1,2]},{"a":"","w":"durch","l":[1,2]}]},{"id":"hw2","name":"Häufigkeitswörter 2","woerter":[{"a":"","w":"eigentlich","l":[0,1],"f":["eiggentlich"]},{"a":"","w":"ein","l":[]},{"a":"","w":"einmal","l":[0,1]},{"a":"","w":"eins","l":[0,1]},{"a":"","w":"er","l":[]},{"a":"","w":"es","l":[]},{"a":"","w":"euch","l":[0,1],"f":["oich"]},{"a":"","w":"fast","l":[1,2]},{"a":"","w":"für","l":[],"f":["fur"]},{"a":"","w":"ganz","l":[1,2]},{"a":"","w":"hat","l":[]},{"a":"","w":"heraus","l":[3,4],"f":["herraus"]},{"a":"","w":"herein","l":[3,4],"f":["herrein"]},{"a":"","w":"hier","l":[1,2],"f":["hir"]},{"a":"","w":"hinein","l":[3,4],"f":["hinnein"]},{"a":"","w":"hinter","l":[2,3]},{"a":"","w":"ihm","l":[]},{"a":"","w":"ihn","l":[]},{"a":"","w":"ihr","l":[],"f":["ir"]},{"a":"","w":"im","l":[]},{"a":"","w":"immer","l":[1,2],"f":["imer"]},{"a":"","w":"in","l":[]},{"a":"","w":"ist","l":[]},{"a":"","w":"ja","l":[]},{"a":"","w":"jede","l":[1,2],"f":["jehde","jedde"]},{"a":"","w":"jetzt","l":[2,3],"f":["jezt"]},{"a":"","w":"kein","l":[1,2]},{"a":"","w":"letzte","l":[2,3],"f":["lezte"]}]},{"id":"hw3","name":"Häufigkeitswörter 3","woerter":[{"a":"","w":"man","l":[]},{"a":"","w":"mehr","l":[1,2],"f":["mer"]},{"a":"","w":"mein","l":[1,2]},{"a":"","w":"meistens","l":[1,2]},{"a":"","w":"mich","l":[1,2]},{"a":"","w":"mir","l":[]},{"a":"","w":"mit","l":[]},{"a":"","w":"nach","l":[1,2]},{"a":"","w":"nein","l":[1,2]},{"a":"","w":"nicht","l":[1,2]},{"a":"","w":"nichts","l":[2,3]},{"a":"","w":"nie","l":[],"f":["ni"]},{"a":"","w":"noch","l":[1,2]},{"a":"","w":"nun","l":[]},{"a":"","w":"nur","l":[]},{"a":"","w":"nächste","l":[1],"f":["nechste"]},{"a":"","w":"nämlich","l":[1],"f":["nemlich"]},{"a":"","w":"ob","l":[],"f":["op"]},{"a":"","w":"oder","l":[1,2],"f":["odder"]},{"a":"","w":"oft","l":[]},{"a":"","w":"ohne","l":[0,1],"f":["one"]},{"a":"","w":"paar","l":[1,2]},{"a":"","w":"schon","l":[0,1,2]},{"a":"","w":"sehr","l":[1,2],"f":["ser"]},{"a":"","w":"sein","l":[1,2]},{"a":"","w":"seit","l":[1,2]},{"a":"","w":"sich","l":[1,2]},{"a":"","w":"sie","l":[],"f":["si"]}]},{"id":"hw4","name":"Häufigkeitswörter 4","woerter":[{"a":"","w":"sind","l":[3],"f":["sint"]},{"a":"","w":"über","l":[0],"f":["übber","uber"]},{"a":"","w":"um","l":[]},{"a":"","w":"und","l":[],"f":["unt"]},{"a":"","w":"uns","l":[]},{"a":"","w":"unter","l":[1,2]},{"a":"","w":"viel","l":[1,2],"f":["vil"]},{"a":"","w":"vom","l":[],"f":["fom"]},{"a":"","w":"von","l":[],"f":["fon"]},{"a":"","w":"vor","l":[],"f":["for"]},{"a":"","w":"vorbei","l":[4,5],"f":["forbei"]},{"a":"","w":"wann","l":[2,3],"f":["wan"]},{"a":"","w":"warum","l":[1,2],"f":["warrum"]},{"a":"","w":"was","l":[]},{"a":"","w":"weil","l":[1,2]},{"a":"","w":"wenn","l":[2,3]},{"a":"","w":"wer","l":[]},{"a":"","w":"wie","l":[],"f":["wi"]},{"a":"","w":"wieder","l":[1,2],"f":["wiedder"]},{"a":"","w":"wir","l":[]},{"a":"","w":"wird","l":[3],"f":["wirt"]},{"a":"","w":"wo","l":[]},{"a":"","w":"zu","l":[]},{"a":"","w":"zum","l":[]},{"a":"","w":"zur","l":[]}]}];
+
+const UEBUNGEN=[
+  {id:"gemischt",name:"Gemischt",    info:"alles zusammen"},
+  {id:"blitz",   name:"Blitzlesen",  info:"merken und tippen"},
+  {id:"luecke",  name:"Lückenwort",  info:"Buchstaben einsetzen"},
+  {id:"wahl",    name:"Welches stimmt?", info:"richtig oder falsch"},
+  {id:"artikel", name:"der/die/das", info:"Artikel finden"}
+];
+
+const $=id=>document.getElementById(id);
+let paketIdx=0, uebung="gemischt", reihenfolge=[], pos=0, sterne=0, gesperrt=false, blitzUhr=null;
+
+function misch(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function paket(){ return PAKETE[paketIdx]; }
+function wort(){ return paket().woerter[reihenfolge[pos]]; }
+
+/* Welche Übung passt zu welchem Wort? */
+function passt(w,u){
+  if(u==="blitz")   return true;
+  if(u==="luecke")  return w.l.length>0;
+  if(u==="wahl")    return !!(w.f && w.f.length);
+  if(u==="artikel") return !!w.a;
+  return true;
+}
+function moeglich(w){ return ["blitz","luecke","wahl","artikel"].filter(u=>passt(w,u)); }
+
+function stoppeUhr(){ if(blitzUhr){clearInterval(blitzUhr); blitzUhr=null;} }
+
+function niloReagiert(art){
+  const n=$("nilo"); n.classList.remove("jubel","schade"); void n.offsetWidth; n.classList.add(art);
+}
+function punkt(){ sterne++; $("sterne").textContent=sterne; niloReagiert("jubel"); }
+function rueckmeldung(t,art){ const r=$("rueck"); if(r){ r.textContent=t; r.className="rueckmeldung "+art; } }
+
+function weiter(){ pos++; gesperrt=false; zeichne(); }
+
+function pruefe(eingabe,ziel){
+  const e=eingabe.trim().replace(/\s+/g," ");
+  if(e===ziel) return "richtig";
+  if(e.toLowerCase()===ziel.toLowerCase()) return "grossschreibung";
+  return "falsch";
+}
+
+/* ---------------- Blitzlesen ---------------- */
+function zeichneBlitz(k){
+  $("karte").innerHTML=`
+    <p class="anweisung">Präg dir das Wort ein – gleich verschwindet es!</p>
+    ${k.a?`<div class="artikel">${k.a}</div>`:""}
+    <div class="blitzwort">${k.w}</div>
+    <div class="countdown" id="countdown">noch 4 Sekunden</div>
+    <div class="balken"><i id="balken"></i></div>
+    <div class="rueckmeldung" id="rueck"></div>`;
+  let rest=4.0;
+  const balken=$("balken");
+  balken.style.transition="width 4s linear";
+  requestAnimationFrame(()=>{ balken.style.width="0%"; });
+  blitzUhr=setInterval(()=>{
+    const a=$("countdown");
+    if(!a){ stoppeUhr(); return; }
+    rest-=0.1;
+    if(rest>0) a.textContent=`noch ${Math.ceil(rest)} Sekunde${Math.ceil(rest)===1?"":"n"}`;
+    else { stoppeUhr(); blitzAbfrage(k); }
+  },100);
+}
+function blitzAbfrage(k){
+  $("karte").innerHTML=`
+    <p class="anweisung">Wie schreibt man das Wort?</p>
+    ${k.a?`<div class="artikel">${k.a} …</div>`:""}
+    <label class="sr-only" for="feld">Das Wort</label>
+    <input class="eingabe" id="feld" type="text" autocomplete="off" autocapitalize="off"
+           spellcheck="false" enterkeyhint="done">
+    <button class="primaer" id="pruefen">Prüfen</button>
+    <div class="rueckmeldung" id="rueck"></div>`;
+  const feld=$("feld"); feld.focus();
+  const los=()=>{
+    if(gesperrt) return;
+    const v=feld.value.trim();
+    if(!v){ rueckmeldung("Schreib das Wort auf.","fast"); return; }
+    const st=pruefe(v,k.w);
+    if(st==="richtig"){
+      gesperrt=true; punkt();
+      rueckmeldung(`Genau: ${(k.a?k.a+" ":"")}${k.w}. Stark!`,"gut");
+      setTimeout(weiter,1500);
+    }else if(st==="grossschreibung"){
+      niloReagiert("schade");
+      rueckmeldung(k.a?"Fast! Denk an den großen Anfangsbuchstaben – es ist ein Nomen."
+                      :"Fast! Achte auf Groß- und Kleinschreibung.","fast");
+      feld.select();
+    }else{
+      niloReagiert("schade");
+      rueckmeldung("Noch nicht ganz. Schau genau hin und versuch es nochmal.","daneben");
+      feld.select();
+    }
+  };
+  $("pruefen").onclick=los;
+  feld.addEventListener("keydown",e=>{ if(e.key==="Enter") los(); });
+}
+
+/* ---------------- Lückenwort ---------------- */
+function zeichneLuecke(k){
+  const fehlend=k.l.map(i=>k.w[i]);
+  const stoerer=["e","n","t","s","r","l","k","g","h","d","m","b"]
+    .filter(b=>!fehlend.map(x=>x.toLowerCase()).includes(b)).slice(0,3);
+  const angebot=misch(fehlend.concat(stoerer));
+  const felder=k.w.split("").map((b,i)=>
+    k.l.includes(i) ? `<span class="loch" data-loch="${i}"></span>` : `<span class="fest">${b}</span>`
+  ).join("");
+  $("karte").innerHTML=`
+    <p class="anweisung">Welche Buchstaben fehlen? Tippe sie an.</p>
+    ${k.a?`<div class="artikel">${k.a}</div>`:""}
+    <div class="luecken" id="luecken">${felder}</div>
+    <div class="buchstaben" id="buchstaben">
+      ${angebot.map((b,i)=>`<button type="button" data-b="${b}" data-i="${i}">${b}</button>`).join("")}
+    </div>
+    <div class="rueckmeldung" id="rueck"></div>`;
+  const loecher=[...document.querySelectorAll("#luecken .loch")];
+  const auswerten=()=>{
+    const gebaut=loecher.map(l=>l.textContent).join("");
+    if(gebaut===k.l.map(i=>k.w[i]).join("")){
+      gesperrt=true; punkt();
+      rueckmeldung(`Richtig: ${(k.a?k.a+" ":"")}${k.w}!`,"gut");
+      setTimeout(weiter,1500);
+    }else{
+      niloReagiert("schade");
+      rueckmeldung("Da stimmt noch was nicht. Tippe auf einen Buchstaben, um ihn zurückzulegen.","daneben");
+    }
+  };
+  document.querySelectorAll("#buchstaben button").forEach(b=>{
+    b.onclick=()=>{
+      if(gesperrt) return;
+      const frei=loecher.find(l=>!l.textContent);
+      if(!frei) return;
+      frei.textContent=b.dataset.b; frei.classList.add("voll"); frei.dataset.von=b.dataset.i;
+      b.disabled=true;
+      if(loecher.every(l=>l.textContent)) auswerten();
+    };
+  });
+  loecher.forEach(l=>{
+    l.onclick=()=>{
+      if(gesperrt||!l.textContent) return;
+      const t=document.querySelector(`#buchstaben button[data-i="${l.dataset.von}"]`);
+      if(t) t.disabled=false;
+      l.textContent=""; l.classList.remove("voll"); delete l.dataset.von;
+    };
+  });
+}
+
+/* ---------------- Welches stimmt? ---------------- */
+function zeichneWahl(k){
+  const karten=misch([k.w].concat(k.f));
+  $("karte").innerHTML=`
+    <p class="anweisung">${karten.length>2?"Nur eine Schreibweise ist richtig. Welche?":"Welche Schreibweise stimmt?"}</p>
+    ${k.a?`<div class="artikel">${k.a}</div>`:""}
+    <div class="auswahl" id="auswahl">
+      ${karten.map(w=>`<button type="button" data-w="${w}">${w}</button>`).join("")}
+    </div>
+    <div class="rueckmeldung" id="rueck"></div>`;
+  document.querySelectorAll("#auswahl button").forEach(b=>{
+    b.onclick=()=>{
+      if(gesperrt) return;
+      if(b.dataset.w===k.w){
+        gesperrt=true; b.classList.add("richtig"); punkt();
+        rueckmeldung(`Ja! ${(k.a?k.a+" ":"")}${k.w} schreibt man so.`,"gut");
+        setTimeout(weiter,1600);
+      }else{
+        b.classList.add("falsch"); b.disabled=true; niloReagiert("schade");
+        rueckmeldung("Das ist es nicht. Schau nochmal genau hin.","daneben");
+      }
+    };
+  });
+}
+
+/* ---------------- der/die/das ---------------- */
+function zeichneArtikel(k){
+  $("karte").innerHTML=`
+    <p class="anweisung">Welcher Artikel gehört dazu?</p>
+    <div class="grosswort">${k.w}</div>
+    <div class="artikelwahl" id="artikelwahl">
+      ${["der","die","das"].map(a=>`<button type="button" data-a="${a}">${a}</button>`).join("")}
+    </div>
+    <div class="rueckmeldung" id="rueck"></div>`;
+  document.querySelectorAll("#artikelwahl button").forEach(b=>{
+    b.onclick=()=>{
+      if(gesperrt) return;
+      if(b.dataset.a===k.a){
+        gesperrt=true; b.classList.add("richtig"); punkt();
+        rueckmeldung(`Richtig: ${k.a} ${k.w}.`,"gut");
+        setTimeout(weiter,1500);
+      }else{
+        b.classList.add("falsch"); b.disabled=true; niloReagiert("schade");
+        rueckmeldung("Das passt nicht. Sag es dir laut vor.","daneben");
+      }
+    };
+  });
+}
+
+/* ---------------- Rahmen ---------------- */
+function neuStarten(){
+  const w=paket().woerter;
+  reihenfolge=misch(w.map((_,i)=>i).filter(i=>
+    uebung==="gemischt" ? moeglich(w[i]).length>0 : passt(w[i],uebung)));
+  pos=0; gesperrt=false;
+  zeichne();
+}
+
+function zeichneFortschritt(){
+  const n=reihenfolge.length;
+  $("zaehler").textContent = n ? `Wort ${Math.min(pos+1,n)} von ${n}` : "keine Wörter";
+  $("spur").style.width = n ? (Math.min(pos,n)/n*100)+"%" : "0%";
+}
+
+function zeichne(){
+  stoppeUhr();
+  zeichneFortschritt();
+  if(!reihenfolge.length){
+    $("karte").innerHTML=`<p class="leerhinweis">In diesem Wortpaket gibt es für
+      „${UEBUNGEN.find(u=>u.id===uebung).name}" keine passenden Wörter.<br>
+      Wähle oben eine andere Übung oder ein anderes Paket.</p>`;
+    return;
+  }
+  if(pos>=reihenfolge.length){
+    $("karte").innerHTML=`
+      <div class="fertig">
+        <h2>Geschafft! ★</h2>
+        <p>Du hast alle ${reihenfolge.length} Wörter aus „${paket().name}" bearbeitet.</p>
+        <button class="primaer" id="nochmal">Noch einmal üben</button>
+      </div>`;
+    $("nochmal").onclick=neuStarten;
+    niloReagiert("jubel");
+    return;
+  }
+  const k=wort();
+  let u=uebung;
+  if(u==="gemischt"){ const m=moeglich(k); u=m[Math.floor(Math.random()*m.length)]; }
+  if(u==="blitz")   return zeichneBlitz(k);
+  if(u==="luecke")  return zeichneLuecke(k);
+  if(u==="wahl")    return zeichneWahl(k);
+  return zeichneArtikel(k);
+}
+
+function zeichneUebungen(){
+  $("uebungen").innerHTML=UEBUNGEN.map(u=>
+    `<button type="button" data-u="${u.id}" class="${u.id===uebung?"aktiv":""}"
+             aria-pressed="${u.id===uebung}">${u.name}<small>${u.info}</small></button>`).join("");
+  document.querySelectorAll("#uebungen button").forEach(b=>{
+    b.onclick=()=>{ uebung=b.dataset.u; zeichneUebungen(); neuStarten(); };
+  });
+}
+
+function zeichnePakete(){
+  $("paket").innerHTML=PAKETE.map((p,i)=>
+    `<option value="${i}">${p.name} (${p.woerter.length} Wörter)</option>`).join("");
+  $("paket").onchange=()=>{
+    paketIdx=Number($("paket").value);
+    $("paketname").textContent=paket().name;
+    neuStarten();
+  };
+}
+
+zeichnePakete();
+zeichneUebungen();
+$("paketname").textContent=paket().name;
+neuStarten();
+</script>
