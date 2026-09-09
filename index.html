@@ -2989,6 +2989,25 @@ button{cursor:pointer}
   .kid-picker.many .kid-card{min-width:78px;font-size:15px;padding:6px 9px}
 }
 
+/* Sammel-Eingabe fuer die Klassenliste */
+.bulk-box{
+  margin:16px 0;padding:12px 14px;
+  background:#28332a;border:3px solid #3d4a3f;border-radius:14px;
+}
+.bulk-box summary{
+  cursor:pointer;font-size:15px;color:#c9d8cd;padding:4px 0;
+  list-style:none;
+}
+.bulk-box summary::before{content:"▸ ";color:#79dc4c}
+.bulk-box[open] summary::before{content:"▾ "}
+.bulk-box summary:hover{color:#fff3d0}
+.bulk-box textarea{
+  width:100%;margin-bottom:10px;padding:10px;font-size:15px;
+  border-radius:12px;border:3px solid #5b7a63;background:#101a13;
+  color:#fff3d0;font-family:inherit;resize:vertical;
+}
+.bulk-box .screen-note{margin:8px 0 10px}
+
 </style>
 </head>
 
@@ -3139,6 +3158,16 @@ button{cursor:pointer}
           <button id="addKidBtn" class="primary small" type="button">Hinzufügen</button>
         </div>
         <div id="kidsMsg" class="teacher-msg"></div>
+
+        <details class="bulk-box">
+          <summary>Mehrere Namen auf einmal einfügen</summary>
+          <p class="screen-note">Die ganze Klassenliste hier hineinkopieren – ein Name pro Zeile, oder durch Komma getrennt. Namen, die schon in der Liste stehen, werden übersprungen.</p>
+          <label for="bulkKidsInput" class="sr-only">Namensliste</label>
+          <textarea id="bulkKidsInput" rows="6" placeholder="Anna&#10;Ben&#10;Clara&#10;David"></textarea>
+          <button id="bulkKidsBtn" class="primary small" type="button">Namen übernehmen</button>
+        </details>
+
+        <button id="clearKidsBtn" class="danger-btn" type="button">Alle Namen löschen</button>
       </section>
 
       <section class="teacher-tabpanel" data-panel="mascot" hidden>
@@ -5529,6 +5558,7 @@ function unlockTeacher(){
     renderMascotPickers();
     renderProgressList();
     updateShareCode();
+    showTeacherTab("kids");   // immer bei den Kindern beginnen
   }else{
     $("pinMsg").textContent="Der Code stimmt nicht.";
     $("pinInput").value="";
@@ -5592,6 +5622,52 @@ function renderKidEditor(){
     holder.appendChild(row);
   });
 }
+/* Nimmt eine ganze Namensliste auf einmal entgegen – ein Name je Zeile
+   oder durch Komma/Semikolon getrennt. Doppelte werden übersprungen. */
+function addKidsBulk(){
+  const raw=$("bulkKidsInput").value||"";
+  const eingaben=raw.split(/[\n,;]+/).map(sanitizeName).filter(Boolean);
+  if(!eingaben.length){ $("kidsMsg").textContent="Es standen keine Namen im Feld."; return; }
+
+  let neu=0, doppelt=0, zuviel=0;
+  eingaben.forEach(name=>{
+    if(classConfig.kids.some(k=>nameKey(k)===nameKey(name))){ doppelt++; return; }
+    if(classConfig.kids.length>=60){ zuviel++; return; }
+    classConfig.kids.push(name);
+    neu++;
+  });
+
+  saveClassConfig();
+  $("bulkKidsInput").value="";
+  renderKidEditor();
+  updateShareCode();
+
+  const teile=[`${neu} ${neu===1?"Name":"Namen"} hinzugefügt`];
+  if(doppelt) teile.push(`${doppelt} war${doppelt===1?"":"en"} schon in der Liste`);
+  if(zuviel)  teile.push(`${zuviel} nicht übernommen – mehr als 60 gehen nicht`);
+  $("kidsMsg").textContent=teile.join(", ")+".";
+}
+
+/* Leert die Klassenliste vollständig. Praktisch, um die Platzhalter-Namen
+   loszuwerden oder zum Schuljahreswechsel neu anzufangen. */
+function clearAllKids(){
+  if(!classConfig.kids.length){ $("kidsMsg").textContent="Die Liste ist schon leer."; return; }
+  const anzahl=classConfig.kids.length;
+  const mitStand=classConfig.kids.filter(n=>profileSummary(n)).length;
+  const warnung=mitStand
+    ? `\n\nAchtung: ${mitStand} ${mitStand===1?"Kind hat":"Kinder haben"} auf diesem Gerät einen Spielstand. Der wird dabei mit gelöscht.`
+    : "";
+  if(!confirm(`Alle ${anzahl} Namen aus der Liste entfernen?${warnung}`)) return;
+
+  classConfig.kids.forEach(deleteProfile);
+  classConfig.kids=[];
+  currentKid=null;
+  saveClassConfig();
+  renderKidEditor();
+  updateShareCode();
+  $("kidsMsg").textContent="Die Namensliste ist jetzt leer.";
+}
+
 function addKid(){
   const v=sanitizeName($("newKidInput").value);
   if(!v){ $("kidsMsg").textContent="Bitte einen Namen eingeben."; return; }
@@ -5754,6 +5830,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     saveClassConfig();
   };
   $("addKidBtn").onclick=addKid;
+  $("bulkKidsBtn").onclick=addKidsBulk;
+  $("clearKidsBtn").onclick=clearAllKids;
   $("newKidInput").addEventListener("keydown",e=>{ if(e.key==="Enter") addKid(); });
   $("mascotNameInput").onchange=()=>{
     MASCOT.name=sanitizeName($("mascotNameInput").value)||"Nilo";
