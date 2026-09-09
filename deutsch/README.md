@@ -11,6 +11,9 @@ wandert das Ganze als Fach „Deutsch" in die Fachauswahl.
 - 12 Lernwörtertrainings des zweiten Schuljahres, je 13 Wörter
 - Häufigkeitswörter des Grundwortschatzes NRW, in vier Paketen
 
+Die Vorlage der Schule ist mit „111 Häufigkeits-/Merkwörter" überschrieben,
+enthält aber nur 109 Einträge; `du` und `ich` fehlten und wurden ergänzt.
+
 ## Übungen
 
 | Übung | Was passiert |
@@ -33,6 +36,10 @@ die Lehrkraft muss nur die Wörter liefern.
 1. `extrahiere.py` liest die Wörter aus dem PDF der Schule (`woerter.json`).
 2. `erzeuge.py` bestimmt je Wort die orthografische Stolperstelle und leitet
    daraus die Lücke und die Fehlschreibungen ab (`pakete.json`).
+3. `baue_html.py` setzt die fertigen Pakete in `lernwoerter.html` ein.
+
+Kommt eine neue Liste dazu, genügen Schritt 2 und 3 – die Wörter selbst können
+auch von Hand in `woerter.json` ergänzt werden.
 
 `erzeuge.py` kennt die typischen Fehler der Grundschule: ß statt ss, fehlende
 oder falsch gesetzte Doppelkonsonanten, ie/i, stummes h, ck, tz, Auslaut d/t
